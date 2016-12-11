@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzti.soft.scores.dao.NotifyDao">
+
+	<resultMap type="Notify" id="NotifyResult">
+		<id property="notifyID" column="NotifyID" />
+		<result property="title" column="Title" />
+		<result property="content" column="Content" />
+		<result property="owner" column="Owner" />
+		<result property="time" column="Time" />
+		<result property="toStudent" column="ToStudent" />
+	</resultMap>
+	
+	<select id="selectNotify" resultMap="NotifyResult">
+		SELECT notify.* FROM notify WHERE notify.`ToStudent` = '1' AND ((notify.`Owner` IN 
+		(SELECT tutor.`TutorName` FROM tutor WHERE tutor.`TutorID` IN (SELECT DISTINCT studenttutorproject.`StudentTutorID` 
+		FROM studenttutorproject WHERE studenttutorproject.`StudentID` = '201560140401'))) OR notify.`Owner` = 'zzti' OR notify.`Owner` = '机房')
+	</select>
+	
+
+	<insert id="insertNotify" parameterType="Notify" keyProperty="notifyID">
+		INSERT notify
+		VALUES(#{notifyID}, #{title}, #{content}, #{owner},
+		#{time}, #{toStudent})
+	</insert>
+
+	<update id="updateNotify">
+		UPDATE notify SET notify.`Content` = #{1} WHERE
+		notify.`NotifyID` = #{0}
+	</update>
+
+	<delete id="deleteNotify">
+		DELETE FROM notify WHERE notify.`NotifyID` = #{0}
+	</delete>
+
+	<select id="selectNotifyByID" resultType="Notify">
+		SELECT * FROM notify
+		WHERE notify.`NotifyID` = #{0}
+	</select>
+
+	<select id="selectNotifyByOwner" resultMap="NotifyResult">
+		SELECT * FROM notify
+		WHERE notify.`Owner` = #{0}
+	</select>
+	
+	<select id="selectAllNotify" resultMap="NotifyResult">
+		SELECT * FROM notify
+	</select>
+
+</mapper>  
+       

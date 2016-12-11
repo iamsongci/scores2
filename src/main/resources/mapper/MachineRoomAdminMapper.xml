@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="cn.edu.zzti.soft.scores.dao.MachineRoomAdminDao">
+		
+		<resultMap type="MachineRoomInfo" id="MachineRoomInfoResult">
+			<id property="machineRoomID" column="MachineRoomID"/>
+			<result property="machineRoomSeatNums" column="MachineRoomSeatNums"/> 
+			<result property="machineRoomAssignSeatNums" column="MachineRoomAssignSeatNums"/> 
+			<result property="machineRoomUnAssignSeatNums" column="MachineRoomUnAssignSeatNums"/> 
+			<result property="machineRoomAssignTutorName" column="MachineRoomAssignTutorName"/> 
+		</resultMap>
+		
+		<select id="selectMachRoomByID" resultType="MachineRoom">
+			SELECT * FROM machineroom WHERE machineroom.`MachineRoomID` = #{0}
+		</select>
+		
+		<select id="selectMachRoomInfo" resultMap="MachineRoomInfoResult">
+			SELECT machineroom.`MachineRoomID`, temp1.`TutorName` AS MachineRoomAssignTutorName ,machineroom.`MachineNumbers` AS MachineRoomSeatNums, temp2.`MachineUsedID` AS MachineRoomAssignSeatNums FROM machineroom LEFT JOIN 
+			(SELECT tutormachineroom.`MachineRoomID`, GROUP_CONCAT(tutor.`TutorName` SEPARATOR', ') AS TutorName FROM tutor, tutormachineroom WHERE tutor.`TutorID` = tutormachineroom.`TutorID`
+			GROUP BY tutormachineroom.`MachineRoomID`) temp1 LEFT JOIN
+			(SELECT tutormachineroom.`MachineRoomID`, GROUP_CONCAT(tutormachineroom.`MachineUsedID` SEPARATOR', ') AS MachineUsedID FROM tutormachineroom
+			GROUP BY tutormachineroom.`MachineRoomID`) temp2
+			ON temp1.`MachineRoomID` = temp2.`MachineRoomID`
+			ON temp1.`MachineRoomID` = machineroom.`MachineRoomID`
+		</select>
+		
+		
+		<update id="updateMachRoomSeatNum" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" open="" close="" separator=";">  
+                UPDATE machineroom
+                <set>
+                	machineroom.`MachineNumbers` = #{item.machineNumbers}
+                </set>
+                WHERE machineroom.`MachineRoomID` = #{item.machineRoomID}
+            </foreach>
+		</update>
+		
+		<update id="updateMachRoomAdmPhoAndEma">
+			UPDATE tutor SET tutor.`TutorPhone` = #{1}, tutor.`TutorEmail` = #{2} WHERE tutor.`TutorID` = #{0}
+		</update>
+		
+		
+		<insert id="insertMachChoice" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" open="" close="" separator=";">  
+                INSERT tutormachineroom
+				VALUES(#{item.tutorID}, #{item.machineRoomID}, #{item.machineUsedID})
+            </foreach>  
+		</insert>
+		
+	</mapper>

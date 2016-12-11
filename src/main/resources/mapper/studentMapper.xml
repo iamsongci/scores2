@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="cn.edu.zzti.soft.scores.dao.StudentDao">
+	
+		<resultMap type="ProjectAssignInfo" id="ProjectAssignInfoResult">
+			<id property="index" column="index"/>
+			<result property="projectName" column="ProjectName"/>
+			<result property="tutorName" column="TutorName"/> 
+			<result property="tutorEmail" column="TutorEmail"/> 
+			<result property="tutorPhone" column="TutorPhone"/> 
+			<result property="studentUsualScore" column="StudentUsualScore"/> 
+			<result property="studentProjectScore" column="StudentProjectScore"/> 
+			<result property="studentReportScore" column="StudentReportScore"/> 
+			<result property="studentTotalScore" column="StudentTotalScore"/> 
+			<result property="trueName" column="TrueName"/> 
+		</resultMap>
+	
+	
+		<update id="updateStuPorject">
+			UPDATE studenttutorproject SET studenttutorproject.`TrueName` = #{1} 
+			WHERE studenttutorproject.`index` = #{0}
+		</update>
+	
+		<select id="stuLogin" resultType="Student">
+			SELECT * FROM student WHERE StudentID=#{0}
+		</select>
+		<update id="updateStuPhone">
+			UPDATE student SET student.`StudentPhone` = #{1} WHERE student.`StudentID` =
+			#{0}
+		</update>
+		<update id="updateStuPsd">
+			UPDATE student SET student.`StudentPassword` = #{1} WHERE
+			student.`StudentID` = #{0}
+		</update>
+		
+		<select id="selectStuProjectInfo" resultMap="ProjectAssignInfoResult">
+			SELECT temp2.ProjectName, temp2.TutorName, temp2.TutorEmail, temp2.TutorPhone, studenttutorproject.`StudentProjectScore`,studenttutorproject.`StudentReportScore`, studenttutorproject.`StudentTotalScore`, 
+			studenttutorproject.`StudentUsualScore`, studenttutorproject.`TrueName`, studenttutorproject.`index` FROM studenttutorproject, 
+			(SELECT project.`ProjectName`, tutor.`TutorName`, tutor.`TutorEmail`, tutor.`TutorPhone`, temp1.StudentTutorID FROM project, tutor, 
+			(SELECT studenttutorproject.`StudentProjectID` AS StudentProjectID, studenttutorproject.`StudentTutorID` AS StudentTutorID FROM studenttutorproject WHERE studenttutorproject.`StudentID` = #{0}) AS temp1
+			WHERE temp1.StudentProjectID = project.`ProjectID` AND temp1.StudentTutorID = tutor.`TutorID`) AS temp2
+			WHERE studenttutorproject.`StudentID` = #{0} AND temp2.StudentTutorID = studenttutorproject.`StudentTutorID`
+		</select>
+		
+		<select id="selectStuInfo" resultType="StudentInfo">
+		select StudentID,StudentName,StudentSex,StudentPhone,ClassName studentClass from student,classes where studentClassID = ClassID AND studentid=#{0}
+		</select>
+	</mapper>  
+       

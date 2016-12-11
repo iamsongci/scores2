@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+      <mapper namespace="cn.edu.zzti.soft.scores.dao.SuperAdminDao">
+      	<resultMap type="TutorInfo" id="TutorInfoResult">
+			<id property="tutorID" column="TutorID"/>
+			<result property="tutorName" column="TutorName"/>
+			<result property="tutorSex" column="TutorSex"/>
+			<result property="tutorPhone" column="TutorPhone"/>
+			<result property="tutorEmail" column="TutorEmail"/>
+			<result property="tutorPower1" column="TutorPower1"/>
+			<result property="tutorPower2" column="TutorPower2"/>
+		</resultMap>
+			
+		<select id="selectTutorInfo" resultMap="TutorInfoResult">
+			SELECT tutor.`TutorID`, tutor.`TutorName`, tutor.`TutorSex`, tutor.`TutorEmail`, tutor.`TutorPhone`, tutor.`TutorPower1`, tutor.`TutorPower2`
+			FROM tutor
+		</select>
+		
+		<update id="updateTutorPwd">
+		   UPDATE tutor SET TutorPassword = '123456' WHERE
+			tutor.`TutorID` = #{0}
+		</update>
+		<update id="updateTutorInfoA" parameterType="Tutor">
+		      UPDATE tutor set TutorName=#{tutorName},TutorSex=#{tutorSex},TutorEmail=#{tutorEmail},TutorPhone=#{tutorPhone} where TutorID=#{tutorID}
+		</update>
+		
+		<update id="updateTutorInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" open="" close="" separator=";">  
+                 UPDATE tutor
+                 <trim prefix="set" suffixOverrides=",">
+					<if test="item.tutorName != null"> tutor.`TutorName` = #{item.tutorName},</if>
+					<if test="item.tutorSex != null">tutor.`TutorSex` = #{item.tutorSex},</if>
+					<if test="item.tutorPhone != null">tutor.`TutorPhone` = #{item.tutorPhone},</if>
+					<if test="item.tutorEmail != null">tutor.`TutorEmail` = #{item.tutorEmail},</if>
+				 </trim>
+				 WHERE tutor.`TutorID` = #{item.tutorID}
+            </foreach>
+		</update>
+		
+		
+		<update id="updateTutorPowerInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" open="" close="" separator=";">  
+                UPDATE tutor
+                 <trim prefix="set" suffixOverrides=",">
+					<if test="item.tutorPower1 != null">tutor.`TutorPower1` = #{item.tutorPower1},</if>
+					<if test="item.tutorPower2 != null">tutor.`TutorPower2` = #{item.tutorPower2},</if>
+				 </trim>
+				 WHERE tutor.`TutorID` = #{item.tutorID}
+            </foreach>
+		</update>
+      </mapper>  
+       

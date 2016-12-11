@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+      <mapper namespace="cn.edu.zzti.soft.scores.dao.TutorDao">
+      	<resultMap type="StudentInfo" id="StudentInfoResult">
+			<id property="studentID" column="StudentID"/>
+			<result property="studentName" column="StudentName"/> 
+			<result property="studentSex" column="StudentSex"/> 
+			<result property="studentPhone" column="StudentPhone"/> 
+			<result property="studentClass" column="ClassName"/> 
+			<result property="studentReportAdress" column="StudentReportAdress"/> 
+		</resultMap>
+		
+		<resultMap type="TutorAssignInfo" id="TutorAssignInfoResult">
+			<id property="tutorID" column="TutorID"/>
+			<result property="tutorName" column="TutorName"/>
+			<result property="tutorSex" column="TutorSex"/>
+			<result property="number" column="Number"/>
+		</resultMap>
+		
+		<resultMap type="ClassAssignInfo" id="ClassAssignInfoResult">
+			<id property="classID" column="ClassID"/>
+			<result property="className" column="ClassName"/>
+			<result property="totalNums" column="TotalNums"/>
+			<result property="assignNums" column="AssignNums"/>
+		</resultMap>
+		
+		<resultMap type="StudentAssignInfo" id="StudentAssignInfoResult">
+			<id property="studentID" column="StudentID"/> 
+			<result property="studentName" column="StudentName"/>
+			<result property="studentSex" column="StudentSex"/>
+			<result property="studentPhone" column="StudentPhone"/>
+			<result property="studentTutorName" column="StudentTutorName"/>
+		</resultMap>
+           <select id="tutLogin" resultType="Tutor">
+			SELECT * FROM tutor WHERE TutorName=#{0} or TutorID=#{0}
+		   </select>
+		   <select id="selectMachRoomInfo" resultType="MachineRoomAdmInfo">
+			SELECT  DISTINCT(tutormachineroom.`TutorID`), temp2.`MachineRoomID` AS MachRoomList, temp1.`MachineUsedID` AS MachRoomSeatInfo, temp3.`TutorName` AS MachRoomAdmName, temp3.`TutorPhone` AS machRoomAdmPhone, temp3.`TutorEmail` AS machRoomAdmEmail FROM tutormachineroom LEFT JOIN
+			(SELECT tutormachineroom.`TutorID`, GROUP_CONCAT(tutormachineroom.`MachineUsedID` SEPARATOR',') AS MachineUsedID FROM tutormachineroom GROUP BY tutormachineroom.`TutorID`) AS temp1
+			ON tutormachineroom.`TutorID` = temp1.`TutorID` LEFT JOIN 
+			(SELECT tutormachineroom.`TutorID`, GROUP_CONCAT(tutormachineroom.`MachineRoomID` SEPARATOR',') AS MachineRoomID FROM tutormachineroom GROUP BY tutormachineroom.`TutorID`) AS temp2
+			ON temp1.`TutorID` = temp2.`TutorID`, 
+			(SELECT tutor.`TutorName`, tutor.`TutorPhone`, tutor.`TutorEmail` FROM tutor WHERE tutor.`TutorPower1` = '1' AND tutor.`TutorPower2` = '1') AS temp3
+			WHERE tutormachineroom.`TutorID` = #{0}
+		</select>
+		
+		<update id="updateStuAssignTutorInfo" parameterType="java.util.List">
+			<foreach collection="list" item="item" index="index" open="" close="" separator=";">  
+                UPDATE studenttutorproject
+                <set>
+                	studenttutorproject.`StudentTutorID` = #{item.tutorID}
+                </set>
+                WHERE studenttutorproject.`StudentID` = #{item.studentID} AND studenttutorproject.`StudentProjectID` = #{item.projectID}
+            </foreach>
+		</update>
+		
+		
+		<select id="selectStudentAssignInfo" resultMap="StudentAssignInfoResult">
+			SELECT student.`StudentID`, student.`StudentName`, student.`StudentSex`, student.`StudentPhone`, temp2.`StudentTutorName` FROM student,
+			(SELECT temp1.`StudentID` AS StudentID, tutor.`TutorName` AS StudentTutorName FROM tutor, 
+			(SELECT studenttutorproject.`StudentID`, studenttutorproject.`StudentTutorID` FROM studenttutorproject) AS temp1
+			WHERE temp1.`StudentTutorID` = tutor.`TutorID`) AS temp2 
+			WHERE student.`StudentID` = temp2.`StudentID`
+		</select>
+		
+		<select id="selectClassAssignInfo" resultMap="ClassAssignInfoResult">
+			SELECT classes.`ClassID`, classes.`ClassName`, temp1.`TotalNums`, temp3.`AssignNums` FROM classes LEFT JOIN 
+			(SELECT student.`StudentClassID`, COUNT(student.`StudentClassID`) AS TotalNums FROM student GROUP BY student.`StudentClassID`) AS temp1 ON classes.`ClassID` = temp1.`StudentClassID` LEFT JOIN 
+			(SELECT student.`StudentClassID`, temp2.`AssignNums` FROM student LEFT JOIN 
+			(SELECT studenttutorproject.`StudentID` AS StudentID, COUNT(studenttutorproject.`StudentID`) AS AssignNums FROM studenttutorproject
+			GROUP BY studenttutorproject.`StudentID`) AS temp2 ON student.`StudentID` = temp2.`StudentID`
+			GROUP BY student.`StudentClassID`) AS temp3 ON classes.`ClassID` = temp3.`StudentClassID`
+		</select>
+		
+		<select id="selectTutorAssignInfo" resultMap="TutorAssignInfoResult">
+			SELECT tutor.`TutorID`, tutor.`TutorName`, tutor.`TutorSex`, temp1.Number FROM tutor LEFT JOIN 
+			(SELECT studenttutorproject.`StudentTutorID`, COUNT(studenttutorproject.`StudentTutorID`) AS Number 
+			FROM studenttutorproject GROUP BY studenttutorproject.`StudentTutorID`) AS temp1 
+			ON temp1.`StudentTutorID` = tutor.`TutorID`
+		</select>
+		
+		<update id="updateTutorPsd">
+			UPDATE tutor SET tutor.`TutorPassword` = #{1}
+			WHERE tutor.`TutorID` = #{0}
+		</update>
+		
+		<update id="updateTutorPhoAndEma">
+			UPDATE tutor SET tutor.`TutorPhone` = #{1}, tutor.`TutorEmail` = #{2}
+			WHERE tutor.`TutorID` = #{0}
+		</update>
+		
+		<!-- 查询某个老师的所有学生 -->
+		<select id="findAllStu" resultMap="StudentInfoResult">
+			SELECT temp2.`StudentID`,student.`StudentName`, student.`StudentSex`, student.`StudentPhone`, classes.`ClassName`, temp2.`ReportAddress` FROM classes, student,
+			(SELECT temp1.`StudentID` AS StudentID, temp1.`ReportAddress` AS ReportAddress, student.`StudentClassID` AS StudentClassID FROM student, 
+			(SELECT studenttutorproject.`StudentID` AS StudentID, studenttutorproject.`ReportAddress` AS ReportAddress FROM studenttutorproject WHERE studenttutorproject.`StudentTutorID` = #{0}) 
+			AS temp1 WHERE student.`StudentID` = temp1.`StudentID`) AS temp2
+			WHERE classes.`ClassID` = temp2.`StudentClassID` AND temp2.`StudentID` = student.`StudentID`
+		</select>
+		
+		
+		<update id="updateStuProScore">
+			<foreach collection="list" item="item" index="index" open="" close="" separator=";">  
+		 		UPDATE studenttutorproject
+	            <trim prefix="set" suffixOverrides=",">
+					<if test="item.studentUsualScore != null">studenttutorproject.`StudentUsualScore` = #{item.studentUsualScore},</if>
+					<if test="item.studentProjectScore != null">studenttutorproject.`StudentProjectScore` = #{item.studentProjectScore},</if>
+					<if test="item.studentReportScore != null">studenttutorproject.`StudentReportScore` = #{item.studentReportScore},</if>
+					<if test="item.studentTotalScore != null">studenttutorproject.`StudentTotalScore` = #{item.studentTotalScore},</if>
+				</trim>
+				<where>
+					<if test="item.studentID != null">
+					  	AND studenttutorproject.`StudentID` = #{item.studentID} 
+					</if>
+					<if test="item.studentTutorID != null">
+						AND studenttutorproject.`StudentTutorID` = #{item.studentTutorID} 
+					</if>
+					<if test="item.studentProjectID != null">
+						AND studenttutorproject.`StudentProjectID` = #{item.studentProjectID}
+					</if>
+				</where>
+				
+			</foreach>
+		</update>
+		
+		<insert id="insertStuProScore" parameterType="java.util.List">
+			INSERT studenttutorproject 
+			VALUES
+			<foreach collection="list" item="item" index="index" separator="," > 
+        		(#{item.studentID}, #{item.studentTutorID}, #{item.studentProjectID}, #{item.studentUsualScore}, #{item.studentProjectScore}, #{item.studentReportScore}, #{item.studentTotalScore}, null) 
+    		</foreach> 
+		</insert>
+      </mapper>  
+       
