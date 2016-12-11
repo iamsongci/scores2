@@ -60,7 +60,7 @@ public class mrAdminController implements ConfigDo {
 		serviceFit.getNotifyService().insertNotify(
 				new Notify(null, title, content, tutor.getTutorName(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
 						toStudent));
-		return "./superAdmin/notify";
+		return "./mrAdmin/notify";
 	}
 
 	// 通知
@@ -75,7 +75,7 @@ public class mrAdminController implements ConfigDo {
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}
-		return "./tutor/notify";
+		return "./mrAdmin/notify";
 	}
 
 	// 个人信息

@@ -13,61 +13,6 @@
 		document.getElementById("title").innerHTML = "标题: " + title;
 		document.getElementById("content").innerHTML = content;
 	}
-
-	function subm() {
-		var title = $('#newtitle').val();
-		var content = $('#newcontent').val();
-		var choice = document.getElementById("newtoStudent");
-		var toStudent;
-		if (choice.checked == true)
-			toStudent = true;
-		if (choice.checked == false)
-			toStudent = false;
-		if (title.trim() == "") {
-			alert("标题不能为空!");
-			return;
-		}
-		if (content.trim() == "") {
-			alert("内容不能为空!");
-			return;
-		}
-		if (confirm('确认创建通知?')) {
-			$.ajax({
-				type : "post",
-				url : "./${sessionScope.pathCode}/createNotify.do",
-				data : "title=" + title + "&content="
-						+ content + "&toStudent=" + toStudent,
-				dataType : 'html',
-				contentType : "application/x-www-form-urlencoded; charset=utf-8",
-				success : function(result) {
-					location.reload();
-				},
-				error : function(request) {
-					alert("Connection error!");
-				}
-			});
-		}
-	}
-
-	function requestUrl(notifyID) {
-		if (confirm('确认要删除通知?')) {
-			$
-					.ajax({
-						type : "post",
-						url : "./${sessionScope.pathCode}/deleteNotify.do",
-						data : "notifyID=" + notifyID,
-						dataType : 'html',
-						contentType : "application/x-www-form-urlencoded; charset=utf-8",
-						success : function(result) {
-							location.reload();
-						},
-						error : function(request) {
-							alert("Connection error!");
-						}
-					});
-			alert('已删除');
-		}
-	}
 </script>
 
 </head>
@@ -101,39 +46,29 @@
 					<thead>
 						<tr>
 							<th><small>标题</small></th>
-							<th><small>内容</small></th>
-							<th><small>所有者</small></th>
-							<th><small>时间</small></th>
-							<th><small>是否发送给学生</small></th>
-							<th><small>详情</small></th>
+							<th><small>发布人</small></th>
+							<th><small>发布时间</small></th>
 						</tr>
 					</thead>
 					<c:forEach items="${notifyList}" var="notify">
 						<tbody>
 							<tr>
-								<td><small>${notify.title}</small></td>
-								<td><small>
-									<c:if test="${fn:length(notify.content) > 5 }">${fn:substring(notify.content,0 ,5 )}...</c:if>
-									<c:if test="${fn:length(notify.content) <= 5 }">${notify.content}</c:if>
-								</small></td>
 								<td>
-									<c:if test="${notify.owner == 'zzti'}"><small><button type="button" class="btn btn-primary">${notify.owner}</button></small></c:if>
+									<div class="visible-md visible-lg hidden-sm hidden-xs">
+										<a data-target="#more" data-toggle="modal"
+											onclick="init('${notify.title}', '${notify.content}')"> 
+											<small>${notify.title}</small>
+										</a>
+									</div>
+								</td>
+
+								<td>
+									<c:if test="${notify.owner == 'zzti'}"><small><button type="button" class="btn btn-primary">系统</button></small></c:if>
 									<c:if test="${notify.owner == '机房'}"><small><button type="button" class="btn btn-success">${notify.owner}</button></small></c:if>
 									<c:if test="${notify.owner != '机房' and notify.owner != 'zzti'}"><small><button type="button" class="btn btn-info">${notify.owner}</button></small></c:if>
 								</td>
 								<td><small>${notify.time}</small></td>
-								<td><small> 
-									<c:if test="${notify.toStudent eq false}">否</c:if>
-									<c:if test="${notify.toStudent eq true}">是</c:if>
-								</small></td>
-								<td>
-									<div class="visible-md visible-lg hidden-sm hidden-xs">
-										<a data-target="#more" data-toggle="modal"
-											onclick="init('${notify.title}', '${notify.content}')"> <i
-											class="fa fa-info-circle"></i> <small>详情</small>
-										</a> 
-									</div>
-								</td>
+
 								
 							</tr>
 						</tbody>

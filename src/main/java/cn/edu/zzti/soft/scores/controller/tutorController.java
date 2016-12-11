@@ -48,7 +48,7 @@ public class tutorController implements ConfigDo{
 		Tutor tutor=(Tutor)session.getAttribute("user");
 		
 		serviceFit.getNotifyService().insertNotify(new Notify(null, title, content, tutor.getTutorName(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), toStudent));
-		return "./superAdmin/notify";
+		return "./tutor/notify";
 	}
 	
 	//通知

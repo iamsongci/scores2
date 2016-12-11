@@ -106,12 +106,10 @@
 					</tr>
 					<thead>
 						<tr>
-							<th><small>标题</small></th><!-- 
-							<th><small>内容</small></th> -->
-							<th><small>所有者</small></th>
-							<th><small>时间</small></th>
-							<th><small>是否发送给学生</small></th><!-- 
-							<th><small>详情</small></th> -->
+							<th><small>标题</small></th>
+							<th><small>发布人</small></th>
+							<th><small>发布时间</small></th>
+							<th><small>是否发送给学生</small></th>
 							<th><small>删除</small></th>
 						</tr>
 					</thead>
@@ -126,11 +124,7 @@
 										</a>
 									</div>
 								</td>
-								<%-- 
-								<td><small>
-									<c:if test="${fn:length(notify.content) > 5 }">${fn:substring(notify.content,0 ,5 )}...</c:if>
-									<c:if test="${fn:length(notify.content) <= 5 }">${notify.content}</c:if>
-								</small></td> --%>
+
 								<td>
 									<c:if test="${notify.owner == 'zzti'}"><small><button type="button" class="btn btn-primary">${notify.owner}</button></small></c:if>
 									<c:if test="${notify.owner == '机房'}"><small><button type="button" class="btn btn-success">${notify.owner}</button></small></c:if>
