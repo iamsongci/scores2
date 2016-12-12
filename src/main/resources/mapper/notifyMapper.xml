@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT notify.* FROM notify WHERE notify.`ToStudent` = '1' AND ((notify.`Owner` IN 
 		(SELECT tutor.`TutorName` FROM tutor WHERE tutor.`TutorID` IN (SELECT DISTINCT studenttutorproject.`StudentTutorID` 
 		FROM studenttutorproject WHERE studenttutorproject.`StudentID` = '201560140401'))) OR notify.`Owner` = 'zzti' OR notify.`Owner` = '机房')
+		ORDER BY notify.`NotifyID` DESC
 	</select>
 	
 
@@ -38,15 +39,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectNotifyByID" resultType="Notify">
 		SELECT * FROM notify
 		WHERE notify.`NotifyID` = #{0}
+		
 	</select>
 
 	<select id="selectNotifyByOwner" resultMap="NotifyResult">
 		SELECT * FROM notify
 		WHERE notify.`Owner` = #{0}
+		ORDER BY notify.`NotifyID` DESC
 	</select>
 	
 	<select id="selectAllNotify" resultMap="NotifyResult">
 		SELECT * FROM notify
+		ORDER BY notify.`NotifyID` DESC
 	</select>
 
 </mapper>  
