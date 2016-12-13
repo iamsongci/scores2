@@ -13,6 +13,7 @@ import cn.edu.zzti.soft.scores.entity.tools.MachineRoomAdmInfo;
 import cn.edu.zzti.soft.scores.entity.tools.StudentAssignInfo;
 import cn.edu.zzti.soft.scores.entity.tools.StudentAssignTutor;
 import cn.edu.zzti.soft.scores.entity.tools.StudentInfo;
+import cn.edu.zzti.soft.scores.entity.tools.StudentInfoWithScores;
 import cn.edu.zzti.soft.scores.entity.tools.TutorAssignInfo;
 import cn.edu.zzti.soft.scores.service.TutorService;
 import cn.edu.zzti.soft.scores.supervisor.DaoFit;
@@ -177,6 +178,23 @@ public class TutorServiceImpl implements TutorService {
 			resultDo.setResult(tut);
 		}else {
 			resultDo.setMessage("用户信息不存在！");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo selectStudentInfoWithScores(String tutorID) {
+		resultDo = new ResultDo();
+		List<StudentInfoWithScores> stuList = null;
+		if(StringUtil.isNotEmpty(tutorID)) {
+			stuList = daoFit.getTutorDao().selectStudentInfoWithScores(tutorID);
+		}
+		if(stuList != null) {
+			resultDo.setResult(stuList);
+			resultDo.setSuccess(true);
+		}
+		else {
+			resultDo.setMessage("查询失败!");
 		}
 		return resultDo;
 	}

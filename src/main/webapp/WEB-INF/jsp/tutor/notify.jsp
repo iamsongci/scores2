@@ -182,8 +182,6 @@
 				<div class="modal-body">
 					<div style="padding: 10px 50px 10px 30px">
 						<input type="text" id="newtitle" name="newtitle" placeholder="标题">
-						<!-- <input type="text" id="newtime" name="newtime"
-							style="float: right;" placeholder="时间。例:2016-1-12"> -->
 					</div>
 					<div style="padding: 10px 30px 10px 30px">
 						<textarea id="newcontent" name="newcontent" class="form-control"

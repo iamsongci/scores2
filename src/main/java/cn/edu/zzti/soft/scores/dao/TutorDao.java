@@ -11,6 +11,7 @@ import cn.edu.zzti.soft.scores.entity.tools.MachineRoomAdmInfo;
 import cn.edu.zzti.soft.scores.entity.tools.StudentAssignTutor;
 import cn.edu.zzti.soft.scores.entity.tools.StudentAssignInfo;
 import cn.edu.zzti.soft.scores.entity.tools.StudentInfo;
+import cn.edu.zzti.soft.scores.entity.tools.StudentInfoWithScores;
 import cn.edu.zzti.soft.scores.entity.tools.TutorAssignInfo;
 
 @Repository
@@ -36,5 +37,7 @@ public interface TutorDao {
 	List<StudentAssignInfo> selectStudentAssignInfo();
 	
 	Integer updateStuAssignTutorInfo(List<StudentAssignTutor> assignInfo);
+	
+	List<StudentInfoWithScores> selectStudentInfoWithScores(String tutorID);
 	
 }

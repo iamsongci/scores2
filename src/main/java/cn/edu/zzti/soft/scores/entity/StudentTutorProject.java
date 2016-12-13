@@ -2,6 +2,14 @@ package cn.edu.zzti.soft.scores.entity;
 
 public class StudentTutorProject {
 
+	private String	index;
+	public String getIndex() {
+		return index;
+	}
+
+	public void setIndex(String index) {
+		this.index = index;
+	}
 	private String  studentID;
 	private String  studentTutorID;
 	private String  studentProjectID;

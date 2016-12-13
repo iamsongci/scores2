@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.edu.zzti.soft.scores.entity.StudentTutorProject;
 import cn.edu.zzti.soft.scores.entity.tools.StudentAssignTutor;
+import cn.edu.zzti.soft.scores.entity.tools.StudentInfoWithScores;
 import cn.edu.zzti.soft.scores.supervisor.ResultDo;
 
 public interface TutorService {
@@ -83,5 +84,12 @@ public interface TutorService {
 	 * @return
 	 */
 	ResultDo updateStuAssignTutorInfo(List<StudentAssignTutor> assignInfo);
+	
+	/**
+	 * 查所有学生带成绩
+	 * @param tutorID
+	 * @return
+	 */
+	ResultDo selectStudentInfoWithScores(String tutorID);
 	
 }

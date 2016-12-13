@@ -196,7 +196,6 @@ public class mrAdminController implements ConfigDo {
 		}
 		if (resultDo.isSuccess()) {
 			model.addAttribute("tutorName", tutorName);
-			System.out.println(tutorName);
 			model.addAttribute("tutorID", tutorID);
 			model.addAttribute("mrInfo", (List) resultDo.getResult());
 		} else {

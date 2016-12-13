@@ -59,5 +59,13 @@ public class Tutor {
 	public void setTutorPassword(String tutorPassword) {
 		this.tutorPassword = tutorPassword;
 	}
+	@Override
+	public String toString() {
+		return "Tutor [tutorID=" + tutorID + ", tutorName=" + tutorName + ", tutorSex=" + tutorSex + ", tutorPhone="
+				+ tutorPhone + ", tutorEmail=" + tutorEmail + ", tutorPower1=" + tutorPower1 + ", tutorPower2="
+				+ tutorPower2 + ", tutorPassword=" + tutorPassword + "]";
+	}
+	
+	
 	
 }

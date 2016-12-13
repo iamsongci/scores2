@@ -33,10 +33,28 @@
 			<result property="studentPhone" column="StudentPhone"/>
 			<result property="studentTutorName" column="StudentTutorName"/>
 		</resultMap>
-           <select id="tutLogin" resultType="Tutor">
+		
+		<resultMap type="StudentInfoWithScores" id="StudentInfoWithScoresResult">
+			<id property="index" column="index"/>
+			<result property="studentID" column="studentID"/> 
+			<result property="studentName" column="studentName"/> 
+			<result property="projectName" column="projectName"/> 
+			<result property="trueName" column="trueName"/> 
+			<result property="usualScore" column="usualScore"/> 
+			<result property="projectScore" column="projectScore"/> 
+			<result property="reportScore" column="reportScore"/> 
+			<result property="totalScore" column="totalScore"/> 
+			<result property="reportAddress" column="reportAddress"/> 
+			
+		</resultMap>
+		
+		
+		
+        <select id="tutLogin" resultType="Tutor">
 			SELECT * FROM tutor WHERE TutorName=#{0} or TutorID=#{0}
-		   </select>
-		   <select id="selectMachRoomInfo" resultType="MachineRoomAdmInfo">
+		</select>
+		  
+		<select id="selectMachRoomInfo" resultType="MachineRoomAdmInfo">
 			SELECT  DISTINCT(tutormachineroom.`TutorID`), temp2.`MachineRoomID` AS MachRoomList, temp1.`MachineUsedID` AS MachRoomSeatInfo, temp3.`TutorName` AS MachRoomAdmName, temp3.`TutorPhone` AS machRoomAdmPhone, temp3.`TutorEmail` AS machRoomAdmEmail FROM tutormachineroom LEFT JOIN
 			(SELECT tutormachineroom.`TutorID`, GROUP_CONCAT(tutormachineroom.`MachineUsedID` SEPARATOR',') AS MachineUsedID FROM tutormachineroom GROUP BY tutormachineroom.`TutorID`) AS temp1
 			ON tutormachineroom.`TutorID` = temp1.`TutorID` LEFT JOIN 
@@ -100,6 +118,11 @@
 			WHERE classes.`ClassID` = temp2.`StudentClassID` AND temp2.`StudentID` = student.`StudentID`
 		</select>
 		
+		<select id="selectStudentInfoWithScores" resultMap="StudentInfoWithScoresResult">
+			SELECT studenttutorproject.`index`, studenttutorproject.`StudentID` AS studentID, student.`StudentName` AS studentName, project.`ProjectName` AS projectName, studenttutorproject.`TrueName` AS trueName, studenttutorproject.`StudentUsualScore` AS usualScore, studenttutorproject.`StudentProjectScore` AS projectScore, studenttutorproject.`StudentReportScore` AS reportScore, studenttutorproject.`StudentTotalScore` AS totalScore, studenttutorproject.`ReportAddress`  AS reportAddress
+			FROM studenttutorproject LEFT JOIN student ON student.`StudentID` = studenttutorproject.`StudentID` LEFT JOIN project ON project.`ProjectID` = studenttutorproject.`StudentProjectID`WHERE studenttutorproject.`StudentTutorID` = #{0}	
+		</select>
+		
 		
 		<update id="updateStuProScore">
 			<foreach collection="list" item="item" index="index" open="" close="" separator=";">  
@@ -110,17 +133,8 @@
 					<if test="item.studentReportScore != null">studenttutorproject.`StudentReportScore` = #{item.studentReportScore},</if>
 					<if test="item.studentTotalScore != null">studenttutorproject.`StudentTotalScore` = #{item.studentTotalScore},</if>
 				</trim>
-				<where>
-					<if test="item.studentID != null">
-					  	AND studenttutorproject.`StudentID` = #{item.studentID} 
-					</if>
-					<if test="item.studentTutorID != null">
-						AND studenttutorproject.`StudentTutorID` = #{item.studentTutorID} 
-					</if>
-					<if test="item.studentProjectID != null">
-						AND studenttutorproject.`StudentProjectID` = #{item.studentProjectID}
-					</if>
-				</where>
+				
+				where studenttutorproject.`index` = #{item.index} 
 				
 			</foreach>
 		</update>

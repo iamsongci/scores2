@@ -9,8 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
 
@@ -197,7 +196,7 @@
 					</li>
 
 					<li id="teaNewTopic"><a
-						href="./${sessionScope.pathCode}/toNewTopic.do"><i
+						href="./${sessionScope.pathCode}/myMrInfo.do"><i
 							class="clip-pencil"></i> <span class="title">机房信息</span><span
 							class="selected"></span> </a></li>
 					<li id="teaTopicList"><a href="javascript:void(0)"><i
@@ -205,47 +204,37 @@
 							class="icon-arrow"></i> <span class="selected"></span> </a>
 						<ul class="sub-menu">
 							<li id="adminTeacherInfo"><a
-								href="./${sessionScope.pathCode}/teaTopicList.do"> <span
+								href="./${sessionScope.pathCode}/myStuInfo.do"> <span
 									class="title"> 学生信息 </span>
 							</a></li>
 							<li id="lookTeaStudent"><a
-								href="./${sessionScope.pathCode}/lookTeaStudent.do"> <span
+								href="./${sessionScope.pathCode}/myStuInfoWithScores.do"> <span
 									class="title">学生成绩</span>
 							</a></li>
 							<!--  <li id="teacherbystudentgrade"><a href="./${sessionScope.pathCode}/TeaByStudentGrade.do"> <span class="title">成绩管理</span> </a></li> -->
 						</ul></li>
 
-					<li id="reportgroup"><a href="javascript:void(0)"><i
-							class="clip-stack-empty"></i> <span class="title">报告管理</span><i
-							class="icon-arrow"></i> <span class="selected"></span> </a>
-						<ul class="sub-menu">
-							<li id="week_report"><a
-								href="./${sessionScope.pathCode}/teaWeekReportList.do"><i></i>
-									<span class="title">日报</span><span class="title"></span> </a></li>
-
-							<li id="teacher_no_report"><a
-								href="./${sessionScope.pathCode}/teaReportManage.do"><i></i>
-									<span class="title">报告</span><span class="title"></span> </a></li>
-						</ul></li>
-
-
-
-					<li id="teacherassigngroup"><a href="javascript:void(0)"><i
-							class=" clip-leaf  	 "></i> <span class="title">管理员功能</span><i
-							class="icon-arrow"></i> <span class="selected"></span> </a>
-						<ul class="sub-menu">
-							<li id="teachergroupall"><a
-								href="./${sessionScope.pathCode}/teaGroup.do?tgId=${sessionScope.user}">
-									<span class="title"> 导师学生分配 </span>
-							</a></li>
-							<li id="teacherassignstudent"><a
-								href="./${sessionScope.pathCode}/teaGroupStudent.do?tgId=${sessionScope.user}&number=1"><span
-									class="title">导师成绩汇总</span> </a></li>
-						</ul></li>
+					<c:if
+						test="${not empty tutor.tutorPower1}">
+						<li id="teacher_file"><a
+							href="./${sessionScope.pathCode}/empty.do">
+							<i class=" clip-leaf"></i>  
+							<span class="title">导师学生分配</span>
+							<span class="selected"></span> </a></li>
+					</c:if>
+					
+					<c:if
+						test="${not empty tutor.tutorPower2}">
+						<li id="teacher_file"><a
+							href="./${sessionScope.pathCode}/empty.do">
+							<i class=" clip-leaf"></i>  
+							<span class="title">导师成绩汇总</span>
+							<span class="selected"></span> </a></li>
+					</c:if>
 
 
 					<li id="teacher_file"><a
-						href="./${sessionScope.pathCode}/toAdminUploadFile.do"><i
+						href="./${sessionScope.pathCode}/empty.do"><i
 							class=" 	clip-download"></i> <span class="title">文件模板</span><span
 							class="selected"></span> </a></li>
 					<li id="teaInfo"><a
