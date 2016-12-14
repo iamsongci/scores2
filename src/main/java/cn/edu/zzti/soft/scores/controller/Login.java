@@ -33,7 +33,6 @@ public class Login {
 		if (n == 2 || n == 3) {// 判断导师姓名进行登录
 			ResultDo resultDo = serviceFit.getTutorService().TutLogin(u);
 			Tutor tut = (Tutor) resultDo.getResult();
-			System.out.println(tut);
 			if (resultDo.isSuccess()) {
 				if (tut.getTutorPassword().equals(p)) {
 					if (tut.getTutorPower1().equals("1") && tut.getTutorPower2().equals("1")) {

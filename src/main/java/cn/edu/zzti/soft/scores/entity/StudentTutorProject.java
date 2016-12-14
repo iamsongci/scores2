@@ -19,6 +19,14 @@ public class StudentTutorProject {
 	private Integer studentTotalScore;
 	private String  trueName;
 	
+	@Override
+	public String toString() {
+		return "StudentTutorProject [index=" + index + ", studentID=" + studentID + ", studentTutorID=" + studentTutorID
+				+ ", studentProjectID=" + studentProjectID + ", studentUsualScore=" + studentUsualScore
+				+ ", studentProjectScore=" + studentProjectScore + ", studentReportScore=" + studentReportScore
+				+ ", studentTotalScore=" + studentTotalScore + ", trueName=" + trueName + "]";
+	}
+
 	public StudentTutorProject() {
 	}
 	
