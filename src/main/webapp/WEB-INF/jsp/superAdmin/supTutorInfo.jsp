@@ -7,16 +7,15 @@
 <title>教师基本信息</title>
 <link rel="stylesheet" href="assets/plugins/select2/select2.css">
 <script type="text/javascript">
-        function tutorId(id){
-                         $.ajax({
-                          type: "post",
-                         url: "./${sessionScope.pathCode}/resetPassword.do",
-             data: {TutorId:id},
-             dataType: "json",
-             
-         });
-        }
-    </script>
+	function tutorId(id){
+		$.ajax({
+			type: "post",
+			url: "./${sessionScope.pathCode}/resetPassword.do",
+			data: {TutorId:id},
+			dataType: "json",
+		});
+	}
+</script>
 </head>
 <body>
 	<!-- start: PAGE HEADER -->

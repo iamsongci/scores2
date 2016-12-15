@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.zzti.soft.scores.entity.Notify;
+import cn.edu.zzti.soft.scores.entity.Project;
 import cn.edu.zzti.soft.scores.entity.Tutor;
 import cn.edu.zzti.soft.scores.entity.tools.TutorInfo;
 import cn.edu.zzti.soft.scores.supervisor.ConfigDo;
@@ -51,6 +52,24 @@ public class SuperAdminController implements ConfigDo{
 		serviceFit.getNotifyService().insertNotify(new Notify(null, title, content, "zzti", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), toStudent));
 		return "./superAdmin/notify";
 	}
+	
+	@RequestMapping("powerAssign")
+	public String powerAssign(Model model,HttpSession session) {
+		ResultDo resultDo = null;
+		resultDo = serviceFit.getSuperAdminService().selectAllProject();
+		//List<Project> proList = (List<Project>)resultDo.getResult();
+		if(resultDo.isSuccess()){
+			model.addAttribute("proList", (List)resultDo.getResult());
+		} else {
+			model.addAttribute("message", "0");
+		}
+		return "./superAdmin/powerAssign";
+	}
+	
+	
+	
+	
+	
 	
 	//通知
 	@RequestMapping("notify")
@@ -116,35 +135,14 @@ public class SuperAdminController implements ConfigDo{
 		tutor.setTutorSex(sex);
 		tutor.setTutorEmail(request.getParameter("tutorEmail"));
 		tutor.setTutorPhone(request.getParameter("tutorPhone"));
-		//System.out.println(tutor.getTutorName()+"------"+tutor.getTutorEmail()+"----"+tutor.getTutorSex());
 		ResultDo result =new ResultDo();
 		result=serviceFit.getSuperAdminService().updateTutorInfoA(tutor);
 		if(result.isSuccess()){
 			return "redirect:./selectTutorInfo.do";
 		}else{
-			return"";  //当信息未添加成功时为添加状态
+			return "";  //当信息未添加成功时为添加状态
 		}
 	}
 
-//	@RequestMapping("selectTutorPower1")
-//	public String selectTutorPower1(Model model, HttpSession session,
-//			HttpServletRequest request) {
-//		List<TutorInfo> list = (List<TutorInfo>) serviceFit
-//				.getSuperAdminService().selectTutorPower1().getResult();
-//		model.addAttribute("tutorInfoList", list);
-//		model.addAttribute("menuSelected1", ConfigDo.SUPTUTOR);
-//		model.addAttribute("menuSelected2", ConfigDo.SUPTUTORPOWER);
-//		return "./superAdmin/TutorPowerA";
-//	}
-//
-//	@RequestMapping("selectTutorPower2")
-//	public String selectTutorPower2(Model model, HttpSession session,
-//			HttpServletRequest request) {
-//		List<TutorInfo> list = (List<TutorInfo>) serviceFit
-//				.getSuperAdminService().selectTutorPower2().getResult();
-//		model.addAttribute("tutorInfoList", list);
-//		model.addAttribute("menuSelected1", ConfigDo.SUPTUTOR);
-//		model.addAttribute("menuSelected2", ConfigDo.SUPTUTORPOWER);
-//		return "./superAdmin/TutorPowerB";
-//	}
+
 }

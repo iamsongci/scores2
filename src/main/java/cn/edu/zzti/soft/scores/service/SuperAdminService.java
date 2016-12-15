@@ -2,9 +2,11 @@ package cn.edu.zzti.soft.scores.service;
 
 import java.util.List;
 
+import cn.edu.zzti.soft.scores.entity.Project;
 import cn.edu.zzti.soft.scores.entity.Tutor;
 import cn.edu.zzti.soft.scores.entity.tools.TutorInfo;
 import cn.edu.zzti.soft.scores.entity.tools.TutorPower;
+import cn.edu.zzti.soft.scores.entity.tools.TutorWithPower;
 import cn.edu.zzti.soft.scores.supervisor.ResultDo;
 
 public interface SuperAdminService {
@@ -40,5 +42,17 @@ public interface SuperAdminService {
 	 * @return
 	 */
 	ResultDo updateTutorPowerInfo(List<TutorPower> powerList);
+	
+	/**
+	 * 查询所有课题
+	 * @return
+	 */
+	ResultDo selectAllProject();
+	
+	/**
+	 * 查询所有带权限的老师
+	 * @return
+	 */
+//	ResultDo selectTutorWithPower();
 
 }

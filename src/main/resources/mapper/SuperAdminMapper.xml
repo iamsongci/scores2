@@ -12,7 +12,29 @@
 			<result property="tutorPower1" column="TutorPower1"/>
 			<result property="tutorPower2" column="TutorPower2"/>
 		</resultMap>
-			
+		
+		<resultMap type="Project" id="ProjectResult">
+			<id property="projectID" column="projectID"/>
+			<result property="projectName" column="projectName"/>
+		</resultMap>
+		
+		<resultMap type="TutorWithPower" id="TutorWithPowerResult">
+			<id property="tutorID" column="tutorID"/>
+			<result property="tutorName" column="tutorName"/>
+			<result property="power1" column="tutorpower1"/>
+			<result property="power2" column="tutorpower2"/>
+		</resultMap>
+		
+		<select id="selectTutorWithPower" resultMap="TutorWithPowerResult">
+			SELECT tutor.`TutorID`, tutor.`TutorName`, tutor.`TutorPower1`, tutor.`TutorPower2` FROM tutor
+			WHERE (tutor.`TutorPower1` != '' OR tutor.`TutorPower2` != '') AND tutor.`TutorPower1` != '1' AND tutor.`TutorPower2` != '1' 
+		</select>
+		
+		
+		<select id="selectAllProject" resultMap="ProjectResult">
+			SELECT project.`ProjectID`, project.`ProjectName` FROM project
+		</select>	
+		
 		<select id="selectTutorInfo" resultMap="TutorInfoResult">
 			SELECT tutor.`TutorID`, tutor.`TutorName`, tutor.`TutorSex`, tutor.`TutorEmail`, tutor.`TutorPhone`, tutor.`TutorPower1`, tutor.`TutorPower2`
 			FROM tutor

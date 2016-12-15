@@ -86,6 +86,7 @@
 			<ol class="breadcrumb">
 				<li><i class="clip-home-3"></i> <a
 					href="./${sessionScope.pathCode}/home.do"> 首页 </a></li>
+				<li class="active">通知管理</li>
 			</ol>
 			<div class="page-header">
 				<h2>通知管理</h2>

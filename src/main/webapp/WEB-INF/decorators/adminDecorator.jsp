@@ -167,12 +167,26 @@
 									class="title">导师基本信息</span>
 							</a></li>
 							<li id="supTutorPower"><a
-								href="./${sessionScope.pathCode}/stuTopic.do"> <span
+								href="./${sessionScope.pathCode}/powerAssign.do"> <span
 									class="title">导师权限分配</span>
 							</a></li>
 						</ul></li>
-
-
+					
+					
+					<li id="supTutor"><a href="javascript:void(0)"><i
+							class=" clip-stack-2  "></i> <span class="title">信息导入</span><i
+							class="icon-arrow"></i> <span class="selected"></span> </a>
+						<ul class="sub-menu">
+							<li id="supTutorInfo"><a
+								href="./${sessionScope.pathCode}/empty.do"> <span
+									class="title">学生</span>
+							</a></li>
+							<li id="supTutorPower"><a
+								href="./${sessionScope.pathCode}/empty.do"> <span
+									class="title">导师</span>
+							</a></li>
+						</ul></li>
+					
 
 					<li id="supPower"><a
 						href="./${sessionScope.pathCode}/empty.do"> <i

@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import cn.edu.zzti.soft.scores.entity.Project;
 import cn.edu.zzti.soft.scores.entity.Tutor;
 import cn.edu.zzti.soft.scores.entity.tools.TutorInfo;
 import cn.edu.zzti.soft.scores.entity.tools.TutorPower;
+import cn.edu.zzti.soft.scores.entity.tools.TutorWithPower;
 
 @Repository
 public interface SuperAdminDao {
@@ -20,4 +22,8 @@ public interface SuperAdminDao {
 	Integer updateTutorInfo(List<TutorInfo> infoList);
 	
 	Integer updateTutorPowerInfo(List<TutorPower> powerList);
+	
+	List<Project> selectAllProject();
+	
+	List<TutorWithPower> selectTutorWithPower();
 }
