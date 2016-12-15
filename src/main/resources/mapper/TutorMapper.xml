@@ -45,10 +45,40 @@
 			<result property="reportScore" column="reportScore"/> 
 			<result property="totalScore" column="totalScore"/> 
 			<result property="reportAddress" column="reportAddress"/> 
-			
-		</resultMap>
+		</resultMap >
 		
+		<resultMap type="StudentWithClass" id="StudentWithClassResult">
+			<id property="studentID" column="studentID"/>
+			<result property="studentName" column="studentName"/> 
+			<result property="className" column="className"/>
+		</resultMap >
+
+
+		<insert id="insertStuTutorPro" parameterType="java.util.List">
+			INSERT studenttutorproject(StudentID, StudentTutorID, StudentProjectID) 
+			VALUES
+				
+			<foreach collection="list" item="item" index="index" separator="," > 
+        		(#{item.studentID}, #{item.studentTutorID}, #{item.studentProjectID}) 
+    		</foreach> 
+		</insert>
+		<select id="selectStuNotHasThisPro" resultMap="StudentWithClassResult">
+			SELECT student.`StudentID`, student.`StudentName`, classes.`ClassName` FROM student, classes WHERE student.`StudentID` NOT IN (SELECT studenttutorproject.`StudentID` FROM studenttutorproject WHERE studenttutorproject.`StudentProjectID` = #{0})
+			AND student.`StudentClassID` = classes.`ClassID`
+		</select>
 		
+		<delete id="deleteByIndex">
+			DELETE FROM studenttutorproject WHERE studenttutorproject.`index` = #{0}
+		</delete>
+		
+		<select id="selectStudentByProjectID" resultMap="StudentInfoWithScoresResult">
+			SELECT studenttutorproject.`index`, studenttutorproject.`StudentID` AS studentID, student.`StudentName` AS studentName, project.`ProjectName` AS projectName, studenttutorproject.`TrueName` AS trueName, studenttutorproject.`StudentUsualScore` AS usualScore, studenttutorproject.`StudentProjectScore` AS projectScore, studenttutorproject.`StudentReportScore` AS reportScore, studenttutorproject.`StudentTotalScore` AS totalScore, studenttutorproject.`ReportAddress`  AS reportAddress
+			FROM studenttutorproject LEFT JOIN student ON student.`StudentID` = studenttutorproject.`StudentID` LEFT JOIN project ON project.`ProjectID` = studenttutorproject.`StudentProjectID`WHERE studenttutorproject.`StudentProjectID` = #{0}
+		</select>
+		
+		<select id="selectProject" resultType="Project">
+			SELECT project.`ProjectID`, project.ProjectName FROM project WHERE project.`ProjectID` = #{0}
+		</select>
 		
         <select id="tutLogin" resultType="Tutor">
 			SELECT * FROM tutor WHERE TutorName=#{0} or TutorID=#{0}

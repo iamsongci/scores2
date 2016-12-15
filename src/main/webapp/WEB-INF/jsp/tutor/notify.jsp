@@ -51,20 +51,19 @@
 
 	function requestUrl(notifyID) {
 		if (confirm('确认要删除通知?')) {
-			$
-					.ajax({
-						type : "post",
-						url : "./${sessionScope.pathCode}/deleteNotify.do",
-						data : "notifyID=" + notifyID,
-						dataType : 'html',
-						contentType : "application/x-www-form-urlencoded; charset=utf-8",
-						success : function(result) {
-							location.reload();
-						},
-						error : function(request) {
-							alert("Connection error!");
-						}
-					});
+			$.ajax({
+				type : "post",
+				url : "./${sessionScope.pathCode}/deleteNotify.do",
+				data : "notifyID=" + notifyID,
+				dataType : 'html',
+				contentType : "application/x-www-form-urlencoded; charset=utf-8",
+				success : function(result) {
+					location.reload();
+				},
+				error : function(request) {
+					alert("Connection error!");
+				}
+			});
 			alert('已删除');
 		}
 	}

@@ -1,6 +1,7 @@
 package cn.edu.zzti.soft.scores.entity.tools;
 
 public class StudentInfo {
+	
 	private String studentID;
 	private String studentName;
 	private Boolean studentSex;

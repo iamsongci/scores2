@@ -11,8 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,15 +39,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.zzti.soft.scores.entity.Notify;
+import cn.edu.zzti.soft.scores.entity.Project;
 import cn.edu.zzti.soft.scores.entity.StudentTutorProject;
 import cn.edu.zzti.soft.scores.entity.Tutor;
 import cn.edu.zzti.soft.scores.entity.tools.StudentInfo;
 import cn.edu.zzti.soft.scores.entity.tools.StudentInfoWithScores;
+import cn.edu.zzti.soft.scores.entity.tools.StudentWithClass;
 import cn.edu.zzti.soft.scores.supervisor.ConfigDo;
 import cn.edu.zzti.soft.scores.supervisor.DaoFit;
 import cn.edu.zzti.soft.scores.supervisor.ResultDo;
 import cn.edu.zzti.soft.scores.supervisor.ServiceFit;
 import cn.edu.zzti.soft.scores.util.ExcelUtil;
+import cn.edu.zzti.soft.scores.util.MyString;
 
 @Controller
 @RequestMapping("/tutor/")
@@ -63,6 +69,203 @@ public class tutorController implements ConfigDo {
 	public String empty(Model model) {
 		model.addAttribute("menuSelected1", ConfigDo.EMPTY);
 		return "./tutor/empty";
+	}
+	
+	
+	@RequestMapping("assignStudent")
+	public String assignStudent(Model model, HttpSession session, @RequestParam("studentID") String studentID, @RequestParam("tutorID") String tutorID, @RequestParam("proID") String proID, @RequestParam("tutorName") String tutorName) {
+		try {
+			tutorName = URLDecoder.decode(tutorName, "utf8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		List<StudentTutorProject> stuList = new ArrayList<StudentTutorProject>();
+		stuList.add(new StudentTutorProject(studentID, tutorID, proID, null, null, null, null));
+		ResultDo resultDo = serviceFit.getTutorService().insertStuTutorPro(stuList);
+		if (resultDo.isSuccess()) {
+			model.addAttribute("tutorID", tutorID);
+			model.addAttribute("proID", proID);
+			model.addAttribute("tutorName", tutorName);
+		} else {
+			model.addAttribute("message", "0");// 未在前台添加事件
+		}
+		return "redirect:./assign.do";
+	}
+	
+	
+	@RequestMapping("assign")
+	public String assign(Model model, HttpSession session, @RequestParam("proID") String proID, @RequestParam("tutorID") String tutorID, @RequestParam("tutorName") String tutorName) {
+		try {
+			tutorName = URLDecoder.decode(tutorName, "utf8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		ResultDo resultDo = serviceFit.getTutorService().selectStuNotHasThisPro(proID);
+		List<StudentWithClass> stuList = (List<StudentWithClass>)resultDo.getResult();
+		if (resultDo.isSuccess()) {
+			model.addAttribute("stuList", stuList);
+			model.addAttribute("tutorID", tutorID);
+			model.addAttribute("proID", proID);
+			model.addAttribute("tutorName", tutorName);
+		} else {
+			model.addAttribute("message", "0");// 未在前台添加事件
+		}
+		return "./tutor/assign";
+	}
+	
+	//删除学生
+	@RequestMapping("deleteStu")
+	public String deleteStu(Model model, HttpSession session, @RequestParam("index") String index) {
+		ResultDo result = new ResultDo();
+		result = serviceFit.getTutorService().deleteByIndex(index);
+
+		if (result.isSuccess()) {
+			model.addAttribute("message", "1");
+		} else {
+			model.addAttribute("message", "0");// 未在前台添加事件
+		}
+		return "./tutor/tutorStu";
+	}
+	
+	
+	//查看学生
+	@RequestMapping("tutorStu")
+	public String tutorStu(Model model, HttpSession session, @RequestParam("tutorID") String tutorID, @RequestParam("tutorName") String tutorName, @RequestParam("proName") String proName) {
+		try {
+			proName = URLDecoder.decode(proName, "utf8");
+			tutorName = URLDecoder.decode(tutorName, "utf8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		MyString pro = new MyString(proName); 
+		MyString tutor = new MyString(tutorName); 
+		
+		ResultDo result = new ResultDo();
+		result = serviceFit.getTutorService().selectStudentInfoWithScores(tutorID);
+		List<StudentInfoWithScores> stuList = (List<StudentInfoWithScores>) result.getResult(); //获取成功
+		if (result.isSuccess()) {
+			model.addAttribute("stuList", stuList);
+			model.addAttribute("tutorID", tutorID);
+			model.addAttribute("tutorName", tutor);
+			model.addAttribute("proName", pro);
+		} else {
+			model.addAttribute("message", "0");// 未在前台添加事件
+		}
+		return "./tutor/tutorStu";
+	}
+	
+	//进入导师列表
+	@RequestMapping("tutorList")
+	public String tutorList(Model model, HttpSession session, @RequestParam("proID") String proID, @RequestParam("proName") String proName) {
+		try {
+			proName = URLDecoder.decode(proName, "utf8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ResultDo result =new ResultDo();
+		result=serviceFit.getSuperAdminService().selectTutorInfo();
+		if(result.isSuccess()){
+			model.addAttribute("tutorList", (List)result.getResult());
+			model.addAttribute("proID", proID);
+			model.addAttribute("proName", proName);
+			
+		} else {
+			model.addAttribute("message", "0");
+		}
+		return "./tutor/tutorList";
+	}
+	
+	//导师分配学生
+	@RequestMapping("tutorAssign")
+	public String tutorAssign(Model model, HttpSession session) {
+		Tutor tutor = (Tutor) session.getAttribute("user");
+		tutor = (Tutor) serviceFit.getTutorService().TutLogin(tutor.getTutorID()).getResult();
+		List<String> scoresNum = Arrays.asList(tutor.getTutorPower1().split(","));
+		List<Project> proList = new ArrayList<Project>();
+		Project pro = null;
+		for (String str : scoresNum) {
+			pro = (Project)serviceFit.getTutorService().selectProject(str).getResult();
+			proList.add(pro);
+		}
+		model.addAttribute("proList", (List<Project>) proList);
+		return "./tutor/tutorAssign";
+	}
+	// 导出我的学生信息
+	@RequestMapping("downloadByPro")
+	public String downloadByPro(Model model, HttpSession session, HttpServletResponse response, @RequestParam("proID") String proID) throws IOException {
+		List<StudentInfoWithScores> projects = (List<StudentInfoWithScores>) (serviceFit.getTutorService()
+				.selectStudentByProjectID(proID).getResult());
+		
+		List<Map<String, Object>> list = createExcelRecord(projects);
+		String columnNames[] = { "index", "学号", "姓名", "课题类型", "分数" };// 列名
+		String keys[] = { "index", "ID", "name", "project", "score" };// map中的key
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try {
+			ExcelUtil.createWorkBook(list, keys, columnNames).write(os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		byte[] content = os.toByteArray();
+		InputStream is = new ByteArrayInputStream(content);
+		// 设置response参数，可以打开下载页面
+		response.reset();
+		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + new String(("我的学生信息.xls").getBytes(), "utf-8"));
+		ServletOutputStream out = response.getOutputStream();
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		try {
+			bis = new BufferedInputStream(is);
+			bos = new BufferedOutputStream(out);
+			byte[] buff = new byte[2048];
+			int bytesRead;
+			// Simple read/write loop.
+			while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+				bos.write(buff, 0, bytesRead);
+			}
+		} catch (final IOException e) {
+			throw e;
+		} finally {
+			if (bis != null)
+				bis.close();
+			if (bos != null)
+				bos.close();
+		}
+		return null;
+	}
+	
+	//查看
+	@RequestMapping("lookProject")
+	public String lookProject(Model model, HttpSession session, @RequestParam("proID") String proID) {
+		ResultDo resultDo = new ResultDo();
+		resultDo = serviceFit.getTutorService().selectStudentByProjectID(proID);
+		if (resultDo.isSuccess()) {
+			model.addAttribute("stus", (List)resultDo.getResult());
+			model.addAttribute("proID", proID);
+		} else {
+			model.addAttribute("message", "0");
+		}
+		return "./tutor/lookProject";
+	}
+	
+	//汇总成绩
+	@RequestMapping("collectScores")
+	public String collectScores(Model model, HttpSession session) {
+		Tutor tutor = (Tutor) session.getAttribute("user");
+		tutor = (Tutor) serviceFit.getTutorService().TutLogin(tutor.getTutorID()).getResult();
+		List<String> scoresNum = Arrays.asList(tutor.getTutorPower2().split(","));
+		List<Project> proList = new ArrayList<Project>();
+		Project pro = null;
+		for (String str : scoresNum) {
+			pro = (Project)serviceFit.getTutorService().selectProject(str).getResult();
+			proList.add(pro);
+		}
+		model.addAttribute("proList", (List<Project>) proList);
+		return "./tutor/collectScores";
 	}
 
 	// 更新学生分数
@@ -112,11 +315,11 @@ public class tutorController implements ConfigDo {
 				else
 					stu.setStudentTotalScore(score.intValue());
 				scoreList.add(stu);
-				
+				System.out.println(stu);
 			}
 		}
 		serviceFit.getTutorService().updateStuProScore(scoreList);
-		return "redirect:./myStuInfoWithScores.do";
+		return null;
 	}
 
 	// 导出我的学生信息
@@ -192,7 +395,6 @@ public class tutorController implements ConfigDo {
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}
-
 		return "./tutor/myStuInfo";
 	}
 

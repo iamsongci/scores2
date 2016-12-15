@@ -2,6 +2,7 @@ package cn.edu.zzti.soft.scores.service;
 
 import java.util.List;
 
+import cn.edu.zzti.soft.scores.entity.Student;
 import cn.edu.zzti.soft.scores.entity.StudentTutorProject;
 import cn.edu.zzti.soft.scores.entity.tools.StudentAssignTutor;
 import cn.edu.zzti.soft.scores.entity.tools.StudentInfoWithScores;
@@ -91,5 +92,43 @@ public interface TutorService {
 	 * @return
 	 */
 	ResultDo selectStudentInfoWithScores(String tutorID);
+	
+	/**
+	 * 查询课题
+	 * @param projectID
+	 * @return
+	 */
+	ResultDo selectProject(String projectID);
+	
+	/**
+	 * 根据课题查学生
+	 * @param projectID
+	 * @return
+	 */
+	ResultDo selectStudentByProjectID(String projectID);
+	
+	/**
+	 * 删除
+	 * @param index
+	 * @return
+	 */
+	ResultDo deleteByIndex(String index);
+	
+	/**
+	 * 查询没有这个课题的学生
+	 * @param projectID
+	 * @return
+	 */
+	ResultDo selectStuNotHasThisPro(String projectID);
+	
+	/**
+	 * 插入学生导师课题
+	 * @param stuList
+	 * @return
+	 */
+	ResultDo insertStuTutorPro(List<StudentTutorProject> stuList);
+	
+	
+	
 	
 }

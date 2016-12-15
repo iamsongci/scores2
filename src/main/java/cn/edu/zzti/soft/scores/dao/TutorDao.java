@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import cn.edu.zzti.soft.scores.entity.Project;
+import cn.edu.zzti.soft.scores.entity.Student;
 import cn.edu.zzti.soft.scores.entity.StudentTutorProject;
 import cn.edu.zzti.soft.scores.entity.Tutor;
 import cn.edu.zzti.soft.scores.entity.tools.ClassAssignInfo;
@@ -12,6 +14,7 @@ import cn.edu.zzti.soft.scores.entity.tools.StudentAssignTutor;
 import cn.edu.zzti.soft.scores.entity.tools.StudentAssignInfo;
 import cn.edu.zzti.soft.scores.entity.tools.StudentInfo;
 import cn.edu.zzti.soft.scores.entity.tools.StudentInfoWithScores;
+import cn.edu.zzti.soft.scores.entity.tools.StudentWithClass;
 import cn.edu.zzti.soft.scores.entity.tools.TutorAssignInfo;
 
 @Repository
@@ -40,4 +43,13 @@ public interface TutorDao {
 	
 	List<StudentInfoWithScores> selectStudentInfoWithScores(String tutorID);
 	
+	Project selectProject(String projectID);
+	
+	List<StudentInfoWithScores> selectStudentByProjectID(String projectID);
+	
+	Integer deleteByIndex(String index);
+	
+	List<StudentWithClass> selectStuNotHasThisPro(String projectID);
+	
+	Integer insertStuTutorPro(List<StudentTutorProject> stuList);
 }

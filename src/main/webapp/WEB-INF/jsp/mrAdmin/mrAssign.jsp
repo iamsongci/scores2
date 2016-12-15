@@ -12,7 +12,7 @@
 		var url="./"+pathCode+"/assign.do?tutorName="+name+"&&tutorID="+id;
 		url=encodeURI(url);
 		url=encodeURI(url); 
-		window.location.href =url;
+		window.location.href = url;
 	}
 </script>
 </head>

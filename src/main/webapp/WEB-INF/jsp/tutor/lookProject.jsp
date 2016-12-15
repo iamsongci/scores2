@@ -1,5 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -9,6 +11,8 @@
 <script src="assets/js/ajaxfileupload.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+
+
 	var curindex = null;
 	function init(index) {
 		curindex = index;
@@ -38,8 +42,9 @@
 		}
 	}
 
-	function downloadWithStuInfo() {
-		window.open('./${sessionScope.pathCode}/download.do');
+	
+	function downloadWithStuInfo(proID) {
+		window.open('./${sessionScope.pathCode}/downloadByPro.do?proID=' + proID);
 		$('#download').modal('hide');
 	}
 
@@ -55,35 +60,37 @@
 				success : function(result) //服务器成功响应处理函数
 				{
 					$('#upload').modal('hide');
-					location.reload();
+					location.reload(true);
 				},
 				error : function(request)//服务器响应失败处理函数
 				{
 					alert("Connection error!");
 				}
 			});
-			$('#upload').modal('hide');
-			location.reload();
-			
 		}
+		$('#upload').modal('hide');
+		location.reload();
+
 	}
 </script>
+
 </head>
 <body>
-	<!-- start: PAGE HEADER -->
 	<div class="row">
 		<div class="col-sm-12">
 			<ol class="breadcrumb">
 				<li><i class="clip-home-3"></i> <a
 					href="./${sessionScope.pathCode}/home.do"> 首页 </a></li>
-				<li class="active">我的学生</li>
+				<li class="active">我管理的课题</li>
 			</ol>
 			<div class="page-header">
-				<h3>我的学生</h3>
+				<h3>我管理的课题</h3>
+				
 			</div>
 		</div>
 	</div>
-
+	
+	
 	<div class="modal fade" id="download" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -96,7 +103,7 @@
 				<div class="modal-body">
 					<div style="padding: 10px 30px 10px 30px">
 						<input type="button" value="导出学生信息"
-							onclick="downloadWithStuInfo()" />
+							onclick="downloadWithStuInfo('${proID}')" />
 					</div>
 					<div style="padding: 10px 30px 10px 30px">
 						<h4>
@@ -169,7 +176,8 @@
 			</div>
 		</div>
 	</div>
-
+	
+	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel-body">
@@ -187,27 +195,22 @@
 						<tr>
 							<th><small>学号</small></th>
 							<th><small>姓名</small></th>
-							<th><small>课题类型</small></th>
 							<th><small>课题名称</small></th>
-							<th><small>成绩</small></th>
-							<th><small>报告地址</small></th>
-							<th><small>录入分数</small></th>
+							<th><small>分数</small></th>
+							<th><small>操作</small></th>
 						</tr>
-
 					</thead>
-					<c:forEach items="${info}" var="info">
+					<c:forEach items="${stus}" var="stu">
 						<tbody>
 							<tr>
-								<td><small>${info.studentID}</small></td>
-								<td><small>${info.studentName}</small></td>
-								<td><small>${info.projectName}</small></td>
-								<td><small>${info.trueName}</small></td>
-								<td><small>${info.totalScore}</small></td>
-								<td><small>${info.reportAddress}</small></td>
+								<td><small>${stu.studentID}</small></td>
+								<td><small>${stu.studentName}</small></td>
+								<td><small>${stu.trueName}</small></td>
+								<td><small>${stu.totalScore}</small></td>
 								<td>
 									<div class="visible-md visible-lg hidden-sm hidden-xs"
 										data-target="#updateScore" data-toggle="modal">
-										<a onclick="init('${info.index}')"> <i
+										<a onclick="init('${stu.index}')"> <i
 											class="fa fa-info-circle"></i> <small>录入成绩</small>
 										</a>
 									</div>
@@ -216,25 +219,18 @@
 						</tbody>
 					</c:forEach>
 				</table>
+				<div class="form-group">
+					<label class="col-sm-8 "> </label>
+					<div class="col-sm-4" style="text-align: right; height: 40px">
+						<page:createPager pageSize="${pageSize}" totalPage="${totalPage}"
+							totalCount="${totalCount}" curPage="${pageNum}"
+							formId="condition" />
+					</div>
+				</div>
+
 			</div>
 		</div>
+		<!-- end: GENERAL PANEL -->
 	</div>
-
-
-	<script
-		src="assets/plugins/jquery-inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
-	
-	<script src="assets/plugins/autosize/jquery.autosize.min.js"></script>
-	
-	<script src="assets/plugins/select2/select2.min.js"></script>
-	
-	<script src="assets/js/form-elements.js"></script>
-	
-	
-	<script>
-		jQuery(document).ready(function() {
-			FormElements.init();
-		});
-	</script> 
 </body>
 </html>

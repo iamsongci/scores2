@@ -71,6 +71,13 @@ public class StudentInfoWithScores {
 	public void setReportAddress(String reportAddress) {
 		this.reportAddress = reportAddress;
 	}
+	@Override
+	public String toString() {
+		return "StudentInfoWithScores [index=" + index + ", studentID=" + studentID + ", studentName=" + studentName
+				+ ", projectName=" + projectName + ", trueName=" + trueName + ", usualScore=" + usualScore
+				+ ", projectScore=" + projectScore + ", reportScore=" + reportScore + ", totalScore=" + totalScore
+				+ ", reportAddress=" + reportAddress + "]";
+	}
 	
 	
 }

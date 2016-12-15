@@ -16,10 +16,7 @@
 <html>
 <head>
 <title><sitemesh:write property='title' /></title>
-<!-- start: META -->
 <meta charset="utf-8" />
-<!--[if IE]>
-    <meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1"/><![endif]-->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,8 +24,6 @@
 <meta content="" name="description" />
 <meta content="" name="author" />
 <base href="<%=basePath%>">
-<!-- end: META -->
-<!-- start: MAIN CSS -->
 <link rel="stylesheet"
 	href="assets/plugins/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -45,28 +40,12 @@
 	id="skin_color">
 <link rel="stylesheet" href="assets/css/print.css" type="text/css"
 	media="print" />
-<!--[if IE 7]>
-    <!--<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome-ie7.min.css">-->
-<![endif]-->
-<!-- end: MAIN CSS -->
-<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+
 <link rel="stylesheet"
 	href="assets/plugins/fullcalendar/fullcalendar/fullcalendar.css">
-<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 <link rel="shortcut icon" href="favicon.ico" />
 
-
-<!-- start: MAIN JAVASCRIPTS -->
-<!--[if lt IE 9]>
-    <script src="assets/plugins/respond.min.js"></script>
-    <script src="assets/plugins/excanvas.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-1.7.2.min.js"></script>
-    <![endif]-->
-<!--[if gte IE 9]><!-->
-
 <script type="text/javascript" src="assets/js/jquery-1.7.2.min.js"></script>
-<!--<![endif]-->
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
 <script src="assets/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script
@@ -80,8 +59,6 @@
 <script
 	src="assets/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js"></script>
 <script src="assets/js/main.js"></script>
-<!-- end: MAIN JAVASCRIPTS -->
-<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 <script src="assets/plugins/flot/jquery.flot.js"></script>
 <script src="assets/plugins/flot/jquery.flot.pie.js"></script>
 <script src="assets/plugins/flot/jquery.flot.resize.min.js"></script>
@@ -120,6 +97,7 @@
 		form1.submit();
 	}
 </script>
+
 <script>
 	jQuery(document).ready(function() {
 		Main.init();
@@ -217,26 +195,26 @@
 					<c:if
 						test="${not empty tutor.tutorPower1}">
 						<li id="teacher_file"><a
-							href="./${sessionScope.pathCode}/empty.do">
+							href="./${sessionScope.pathCode}/tutorAssign.do">
 							<i class=" clip-leaf"></i>  
-							<span class="title">导师学生分配</span>
+							<span class="title">管理员-导师学生分配</span>
 							<span class="selected"></span> </a></li>
 					</c:if>
 					
 					<c:if
 						test="${not empty tutor.tutorPower2}">
 						<li id="teacher_file"><a
-							href="./${sessionScope.pathCode}/empty.do">
+							href="./${sessionScope.pathCode}/collectScores.do">
 							<i class=" clip-leaf"></i>  
-							<span class="title">导师成绩汇总</span>
+							<span class="title">管理员-学生成绩汇总</span>
 							<span class="selected"></span> </a></li>
 					</c:if>
 
 
-					<li id="teacher_file"><a
+					<%-- <li id="teacher_file"><a
 						href="./${sessionScope.pathCode}/empty.do"><i
 							class=" 	clip-download"></i> <span class="title">文件模板</span><span
-							class="selected"></span> </a></li>
+							class="selected"></span> </a></li> --%>
 					<li id="teaInfo"><a
 						href="./${sessionScope.pathCode}/teaInfo.do"> <i
 							class=" clip-settings"></i> <span class="title">个人信息</span> <span

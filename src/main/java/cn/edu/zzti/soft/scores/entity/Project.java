@@ -17,5 +17,10 @@ public class Project {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+	@Override
+	public String toString() {
+		return "Project [projectID=" + projectID + ", projectName=" + projectName + "]";
+	}
+	
 	
 }

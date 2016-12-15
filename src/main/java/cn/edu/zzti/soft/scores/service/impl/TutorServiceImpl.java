@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import cn.edu.zzti.soft.scores.entity.Project;
+import cn.edu.zzti.soft.scores.entity.Student;
 import cn.edu.zzti.soft.scores.entity.StudentTutorProject;
 import cn.edu.zzti.soft.scores.entity.Tutor;
 import cn.edu.zzti.soft.scores.entity.tools.ClassAssignInfo;
@@ -14,6 +16,7 @@ import cn.edu.zzti.soft.scores.entity.tools.StudentAssignInfo;
 import cn.edu.zzti.soft.scores.entity.tools.StudentAssignTutor;
 import cn.edu.zzti.soft.scores.entity.tools.StudentInfo;
 import cn.edu.zzti.soft.scores.entity.tools.StudentInfoWithScores;
+import cn.edu.zzti.soft.scores.entity.tools.StudentWithClass;
 import cn.edu.zzti.soft.scores.entity.tools.TutorAssignInfo;
 import cn.edu.zzti.soft.scores.service.TutorService;
 import cn.edu.zzti.soft.scores.supervisor.DaoFit;
@@ -195,6 +198,83 @@ public class TutorServiceImpl implements TutorService {
 		}
 		else {
 			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo selectProject(String projectID) {
+		resultDo = new ResultDo();
+		Project project = null;
+		project = daoFit.getTutorDao().selectProject(projectID);
+		if(project != null) {
+			resultDo.setSuccess(true);
+			resultDo.setResult(project);
+		}
+		else {
+			resultDo.setMessage("查询失败!");
+		}
+		
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo selectStudentByProjectID(String projectID) {
+		resultDo = new ResultDo();
+		List<StudentInfoWithScores> stuList = null;
+		stuList = (List<StudentInfoWithScores>)daoFit.getTutorDao().selectStudentByProjectID(projectID);
+		if(stuList != null) {
+			resultDo.setSuccess(true);
+			resultDo.setResult(stuList);
+		}
+		else {
+			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
+	
+
+	@Override
+	public ResultDo deleteByIndex(String index) {
+		resultDo = new ResultDo();
+		Integer i = null;
+		i = daoFit.getTutorDao().deleteByIndex(index);
+		if(i != null) {
+			resultDo.setSuccess(true);
+			resultDo.setResult(i);
+		}
+		else {
+			resultDo.setMessage("删除失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo selectStuNotHasThisPro(String projectID) {
+		resultDo = new ResultDo();
+		List<StudentWithClass> stuList = null;
+		stuList = daoFit.getTutorDao().selectStuNotHasThisPro(projectID);
+		if(stuList != null) {
+			resultDo.setSuccess(true);
+			resultDo.setResult(stuList);
+		}
+		else {
+			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo insertStuTutorPro(List<StudentTutorProject> stuList) {
+		resultDo = new ResultDo();
+		Integer i = null;
+		i = daoFit.getTutorDao().insertStuTutorPro(stuList);
+		if(i != null) {
+			resultDo.setSuccess(true);
+			resultDo.setResult(i);
+		}
+		else {
+			resultDo.setMessage("插入失败!");
 		}
 		return resultDo;
 	}
