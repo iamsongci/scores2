@@ -161,7 +161,7 @@
 				<!-- start: TOP NAVIGATION MENU -->
 				<ul class="nav navbar-right">
 					<li class="dropdown current-user"><a class="dropdown-toggle"
-						href="#"> <i class="clip-youtube "></i> <span class="username">系统使用说明</span>
+						href="./student/home.do"> <i class="clip-youtube "></i> <span class="username">系统使用说明</span>
 					</a></li>
 					<!-- start: USER DROPDOWN -->
 					<li class="dropdown current-user"><a data-toggle="dropdown"
@@ -204,9 +204,9 @@
 					<li id="index" class="active open"><a href="./student/home.do"><i
 							class="clip-home-3"></i> <span class="title">首页</span><span
 							class="selected"></span> </a></li>
-					<li><a href="./${sessionScope.pathCode}/notify.do"><i
-							class=" glyphicon glyphicon-bullhorn  "></i> <span class="title">通知管理</span></a>
-					</li>
+					<!--  <li><a href="./${sessionScope.pathCode}/notify.do"><i
+							class=" glyphicon glyphicon-bullhorn  "></i> <span class="title">通知</span></a>
+					</li>-->
 					<li id="stuSubjectInfo"><a
 						href="./${sessionScope.pathCode}/stuSubjectInfo.do"> <i
 							class="glyphicon glyphicon-file "></i> <span class="title">课题信息</span>

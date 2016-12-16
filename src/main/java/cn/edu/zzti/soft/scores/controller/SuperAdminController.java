@@ -63,6 +63,9 @@ public class SuperAdminController implements ConfigDo{
 		} else {
 			model.addAttribute("message", "0");
 		}
+		model.addAttribute("menuSelected1", ConfigDo.SUPTUTOR);
+		model.addAttribute("menuSelected2", ConfigDo.SUPTUTORPOWER);
+		
 		return "./superAdmin/powerAssign";
 	}
 	
@@ -82,6 +85,7 @@ public class SuperAdminController implements ConfigDo{
 		else{
 			model.addAttribute("message","0" );//未在前台添加事件
 		}
+		model.addAttribute("menuSelected1", ConfigDo.SUPNOTIFY);
 		return "./superAdmin/notify";
 	}
 	

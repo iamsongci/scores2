@@ -26,6 +26,15 @@ public class studentController implements ConfigDo {
 	private ServiceFit serviceFit;
 	@RequestMapping("home")
 	public String homePage(Model model,HttpSession session) {
+		ResultDo result = new ResultDo();
+		Student stu=(Student)session.getAttribute("user");
+		result = serviceFit.getNotifyService().selectNotify(stu.getStudentID());
+		if(result.isSuccess()) {
+			model.addAttribute("notifyList", (List<Notify>)result.getResult());
+		}
+		else{
+			model.addAttribute("message","0" );//未在前台添加事件
+		}
 		model.addAttribute("menuSelected1", ConfigDo.INDEX);
 		return "./student/home";
 	}

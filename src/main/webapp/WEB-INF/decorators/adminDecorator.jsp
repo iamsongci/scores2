@@ -153,7 +153,7 @@
 							class="clip-home-3"></i> <span class="title">首页</span><span
 							class="selected"></span> </a></li>
 
-					<li id="adminNotifyF"><a
+					<li id="supNotify"><a
 						href="./${sessionScope.pathCode}/notify.do"><i
 							class=" glyphicon glyphicon-bullhorn  "></i> <span class="title">通知管理</span></a>
 					</li>
@@ -174,14 +174,14 @@
 					
 					
 					<li id="supTutor"><a href="javascript:void(0)"><i
-							class=" clip-stack-2  "></i> <span class="title">信息导入</span><i
+							class=" glyphicon glyphicon-import  "></i> <span class="title">信息导入</span><i
 							class="icon-arrow"></i> <span class="selected"></span> </a>
 						<ul class="sub-menu">
 							<li id="supTutorInfo"><a
 								href="./${sessionScope.pathCode}/empty.do"> <span
 									class="title">学生</span>
 							</a></li>
-							<li id="supTutorPower"><a
+							<li id="tutor"><a
 								href="./${sessionScope.pathCode}/empty.do"> <span
 									class="title">导师</span>
 							</a></li>
