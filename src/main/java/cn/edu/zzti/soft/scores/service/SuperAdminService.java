@@ -54,5 +54,36 @@ public interface SuperAdminService {
 	 * @return
 	 */
 //	ResultDo selectTutorWithPower();
+	
+	/**
+	 * 
+	 * @param projectID
+	 * @return
+	 */
+	ResultDo selectTutorHasThisPower(String projectID);
+	
+	/**
+	 * 
+	 * @param projectID
+	 * @return
+	 */
+	ResultDo selectTutorHasNoThisPower1(String projectID);
+	
+	ResultDo selectTutorHasNoThisPower2(String projectID);
 
+
+	/**
+	 * 
+	 * @param tutorID
+	 * @return
+	 */
+	ResultDo selectTutorIDWithPower(String tutorID);
+	
+	/**
+	 * 
+	 * @param tutorID
+	 * @param porID
+	 * @return
+	 */
+	ResultDo updateTutorPro(String tutorID, String power1, String pwoer2);
 }

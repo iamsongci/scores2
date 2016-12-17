@@ -188,11 +188,11 @@
 						</ul></li>
 					
 
-					<li id="supPower"><a
+					<%-- <li id="supPower"><a
 						href="./${sessionScope.pathCode}/empty.do"> <i
 							class="clip-cogs"></i> <span class="title">系统权限设置</span> <span
 							class="selected"></span>
-					</a></li>
+					</a></li> --%>
 				</ul>
 				<!-- end: MAIN NAVIGATION MENU -->
 			</div>

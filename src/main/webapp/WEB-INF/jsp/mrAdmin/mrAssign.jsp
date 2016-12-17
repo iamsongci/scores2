@@ -32,6 +32,11 @@
 				<li class="active">导师机房分配</li>
 			</ol>
 			<!-- end: PAGE TITLE & BREADCRUMB -->
+			</ol>
+			<!-- end: PAGE TITLE & BREADCRUMB -->
+			<div class="page-header">
+				<h2>导师列表</h2>
+			</div>
 		</div>
 	</div>
 	<!-- end: PAGE HEADER 頭部結束-->

@@ -56,11 +56,10 @@
 				url : './${sessionScope.pathCode}/upLoad.do',
 				secureuri : false, //安全传输
 				fileElementId : 'file', //file标签的id  
-				dataType : 'html', //返回数据的类型  
+				dataType : null, //返回数据的类型  
 				success : function(result) //服务器成功响应处理函数
 				{
-					$('#upload').modal('hide');
-					location.reload(true);
+					location.reload();
 				},
 				error : function(request)//服务器响应失败处理函数
 				{
@@ -68,8 +67,8 @@
 				}
 			});
 		}
-		$('#upload').modal('hide');
-		location.reload();
+/* 		$('#upload').modal('hide');
+		location.reload(); */
 
 	}
 </script>

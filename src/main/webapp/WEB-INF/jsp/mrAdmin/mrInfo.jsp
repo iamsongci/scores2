@@ -48,18 +48,17 @@
 <body>
 
 	<c:if test="${message != null }">
-
 	</c:if>
-	<!-- start: PAGE HEADER -->
 	<div class="row">
 		<div class="col-sm-12">
-			<!-- start: PAGE TITLE & BREADCRUMB -->
 			<ol class="breadcrumb">
 				<li><i class="clip-home-3"></i> <a
 					href="./${sessionScope.pathCode}/home.do"> 首页 </a></li>
 				<li class="active">个人信息</li>
 			</ol>
-			<!-- end: PAGE TITLE & BREADCRUMB -->
+			<div class="page-header">
+				<h2>信息维护</h2>
+			</div>
 		</div>
 	</div>
 	<!-- end: PAGE HEADER 頭部結束-->

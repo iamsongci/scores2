@@ -47,8 +47,8 @@
 <link rel="stylesheet" href="assets/css/print.css" type="text/css"
 	media="print" />
 <!--  [if IE 7]-->
-<link rel="stylesheet"
-	href="assets/plugins/font-awesome/css/font-awesome-ie7.min.css">
+<!-- <link rel="stylesheet"
+	href="assets/plugins/font-awesome/css/font-awesome-ie7.min.css"> -->
 <!-- [endif]-->
 <!-- end: MAIN CSS -->
 <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->

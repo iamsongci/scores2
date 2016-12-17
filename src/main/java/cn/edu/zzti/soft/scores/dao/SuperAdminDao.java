@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import cn.edu.zzti.soft.scores.entity.Project;
 import cn.edu.zzti.soft.scores.entity.Tutor;
+import cn.edu.zzti.soft.scores.entity.tools.TutorIDWithPower;
 import cn.edu.zzti.soft.scores.entity.tools.TutorInfo;
 import cn.edu.zzti.soft.scores.entity.tools.TutorPower;
 import cn.edu.zzti.soft.scores.entity.tools.TutorWithPower;
@@ -26,4 +27,10 @@ public interface SuperAdminDao {
 	List<Project> selectAllProject();
 	
 	List<TutorWithPower> selectTutorWithPower();
+	
+	TutorIDWithPower selectTutorIDWithPower(String tutorID);
+	
+	Integer updateTutorPro(String tutorID, String power1, String pwoer2);
+	
+	
 }

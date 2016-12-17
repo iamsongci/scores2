@@ -24,6 +24,9 @@
 				<li class="active">个人信息</li>
 			</ol>
 			<!-- end: PAGE TITLE & BREADCRUMB -->
+			<div class="page-header">
+				<h2>个人信息</h2>
+			</div>
 		</div>
 	</div>
 	<!-- end: PAGE HEADER 頭部結束-->

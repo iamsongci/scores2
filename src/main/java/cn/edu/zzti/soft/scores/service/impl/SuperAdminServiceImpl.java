@@ -1,5 +1,6 @@
 package cn.edu.zzti.soft.scores.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import cn.edu.zzti.soft.scores.entity.Project;
 import cn.edu.zzti.soft.scores.entity.Tutor;
 import cn.edu.zzti.soft.scores.entity.tools.MachineChoice;
+import cn.edu.zzti.soft.scores.entity.tools.TutorHasPower;
+import cn.edu.zzti.soft.scores.entity.tools.TutorIDWithPower;
 import cn.edu.zzti.soft.scores.entity.tools.TutorInfo;
 import cn.edu.zzti.soft.scores.entity.tools.TutorPower;
 import cn.edu.zzti.soft.scores.entity.tools.TutorWithPower;
@@ -123,22 +126,29 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 				if(power1Size != 0) 
 					for (int i = 0; i < power1Size; i++) {
 						if(pow1[i].equals(pro.getProjectID())) {
-							if(pro.getPower1() == null)
+							if(pro.getPower1() == null) {
 								pro.setPower1(tutor.getTutorName());
-							else
+								pro.setPower1TutorID(tutor.getTutorID());
+							}
+							else {
 								pro.setPower1(pro.getPower1() + "," + tutor.getTutorName());
+								pro.setPower1TutorID(pro.getPower1TutorID() + "," + tutor.getTutorID());
+							}
 						}
 					}
 				
 				if(power2Size != 0) 
 					for (int i = 0; i < power2Size; i++) {
 						if(pow2[i].equals(pro.getProjectID())) {
-							if(pro.getPower2() == null)
+							if(pro.getPower2() == null) {
 								pro.setPower2(tutor.getTutorName());
-							else
+								pro.setPower2TutorID(tutor.getTutorID());
+							}
+							else {
 								pro.setPower2(pro.getPower2() + "," + tutor.getTutorName());
+								pro.setPower2TutorID(pro.getPower2TutorID() + "," + tutor.getTutorID());
+							}
 						}
-						
 					}
 			}
 		}
@@ -151,7 +161,166 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 		}
 		return resultDo;
 	}
+	
+	@Override
+	public ResultDo selectTutorHasThisPower(String projectID) {
+		ResultDo resultDo = new ResultDo();
+		List<TutorInfo> tutorList = daoFit.getSuperAdminDao().selectTutorInfo();
+		List<TutorHasPower> tutList = new ArrayList<TutorHasPower>();
+		String[] pow1 = null;
+		String[] pow2 = null;
+		Integer power1Size = null;
+		Integer power2Size = null;
+		TutorHasPower tut = null;
+		for (TutorInfo tutor : tutorList) {
+			tut = new TutorHasPower();
+			tut.setTutorID(tutor.getTutorID());
+			tut.setTutorName(tutor.getTutorName());
+			
+			
+			if(tutor.getTutorPower1() != null) 
+				pow1 = tutor.getTutorPower1().split(",");
+			if(tutor.getTutorPower2() != null) 
+				pow2 = tutor.getTutorPower2().split(",");
+			
+			power1Size = pow1.length;
+			power2Size = pow2.length;
+			if(power1Size != 0) 
+				for (int i = 0; i < power1Size; i++) {
+					if(pow1[i].equals(projectID)) {
+						tut.setPower1(true);
+					}
+				}
+			
+			if(power2Size != 0) 
+				for (int i = 0; i < power2Size; i++) {
+					if(pow2[i].equals(projectID)) {
+						tut.setPower2(true);
+					}
+				}
+			tutList.add(tut);
+		}
+		
+		
+		if(tutorList != null) {
+			resultDo.setResult(tutList);
+			resultDo.setSuccess(true);
+		} 
+		else {
+			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
 
+	@Override
+	public ResultDo selectTutorIDWithPower(String tutorID) {
+		System.out.println(tutorID);
+		resultDo = new ResultDo();
+		TutorIDWithPower tutor = null;
+		tutor=daoFit.getSuperAdminDao().selectTutorIDWithPower(tutorID);
+		if(tutor!=null){
+			resultDo.setResult(tutor);
+			resultDo.setSuccess(true);
+		}else{
+			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo updateTutorPro(String tutorID, String power1, String pwoer2) {
+		resultDo = new ResultDo();
+		Integer i = null;
+		i = daoFit.getSuperAdminDao().updateTutorPro(tutorID, power1, pwoer2);
+		if(i != null){
+			resultDo.setResult(i);
+			resultDo.setSuccess(true);
+		}else{
+			resultDo.setMessage("更新失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo selectTutorHasNoThisPower1(String projectID) {
+		ResultDo resultDo = new ResultDo();
+		List<TutorInfo> tutorList = daoFit.getSuperAdminDao().selectTutorInfo();
+		List<TutorHasPower> tutList = new ArrayList<TutorHasPower>();
+		String[] pow1 = null;
+		Integer power1Size = null;
+		TutorHasPower tut = null;
+		boolean flag = false;
+		for (TutorInfo tutor : tutorList) {
+			flag = false;
+			tut = new TutorHasPower();
+			tut.setTutorID(tutor.getTutorID());
+			tut.setTutorName(tutor.getTutorName());
+			if(tutor.getTutorPower1() != null) 
+				pow1 = tutor.getTutorPower1().split(",");
+			power1Size = pow1.length;
+			if(power1Size != 0) 
+				for (int i = 0; i < power1Size; i++) {
+					if(pow1[i].equals(projectID)) {
+						flag = true;
+					}
+				}
+			
+			if(!flag)
+				tutList.add(tut);
+		}
+		
+		
+		if(tutorList != null) {
+			resultDo.setResult(tutList);
+			resultDo.setSuccess(true);
+		} 
+		else {
+			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo selectTutorHasNoThisPower2(String projectID) {
+		ResultDo resultDo = new ResultDo();
+		List<TutorInfo> tutorList = daoFit.getSuperAdminDao().selectTutorInfo();
+		List<TutorHasPower> tutList = new ArrayList<TutorHasPower>();
+
+		String[] pow2 = null;
+		Integer power2Size = null;
+		TutorHasPower tut = null;
+		boolean flag = false;
+		for (TutorInfo tutor : tutorList) {
+			flag = false;
+			tut = new TutorHasPower();
+			tut.setTutorID(tutor.getTutorID());
+			tut.setTutorName(tutor.getTutorName());
+			if(tutor.getTutorPower2() != null) 
+				pow2 = tutor.getTutorPower2().split(",");
+			power2Size = pow2.length;
+
+			if(power2Size != 0) 
+				for (int i = 0; i < power2Size; i++) {
+					if(pow2[i].equals(projectID)) {
+						flag = true;
+					}
+				}
+			
+			if(!flag)
+				tutList.add(tut);
+		}
+		
+		
+		if(tutorList != null) {
+			resultDo.setResult(tutList);
+			resultDo.setSuccess(true);
+		} 
+		else {
+			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
+	
 /*	@Override
 	public ResultDo selectTutorWithPower() {
 		resultDo = new ResultDo();

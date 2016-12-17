@@ -25,6 +25,14 @@
 			<result property="power2" column="tutorpower2"/>
 		</resultMap>
 		
+		<select id="selectTutorIDWithPower" resultType="TutorIDWithPower">
+			SELECT tutor.`TutorID`, tutor.`TutorPower1`, tutor.`TutorPower2` FROM tutor WHERE tutor.`TutorID` = #{0}
+		</select>
+		
+		<select id="updateTutorPro">
+			UPDATE tutor SET tutor.`TutorPower1` = #{1}, tutor.`TutorPower2` = #{2} WHERE tutor.`TutorID` = #{0}
+		</select>
+		
 		<select id="selectTutorWithPower" resultMap="TutorWithPowerResult">
 			SELECT tutor.`TutorID`, tutor.`TutorName`, tutor.`TutorPower1`, tutor.`TutorPower2` FROM tutor
 			WHERE (tutor.`TutorPower1` != '' OR tutor.`TutorPower2` != '') AND tutor.`TutorPower1` != '1' AND tutor.`TutorPower2` != '1' 

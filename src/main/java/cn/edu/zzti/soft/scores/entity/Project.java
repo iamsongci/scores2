@@ -6,7 +6,22 @@ public class Project {
 	private String projectName;
 	private String power1;
 	private String power2;
+	private String power1TutorID;
+	private String power2TutorID;
 	
+	
+	public String getPower1TutorID() {
+		return power1TutorID;
+	}
+	public void setPower1TutorID(String power1TutorID) {
+		this.power1TutorID = power1TutorID;
+	}
+	public String getPower2TutorID() {
+		return power2TutorID;
+	}
+	public void setPower2TutorID(String power2TutorID) {
+		this.power2TutorID = power2TutorID;
+	}
 	public String getPower1() {
 		return power1;
 	}

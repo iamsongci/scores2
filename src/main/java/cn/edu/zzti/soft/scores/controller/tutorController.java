@@ -305,7 +305,7 @@ public class tutorController implements ConfigDo {
 				String index = getStringCellValue(hssfRow.getCell(0));
 				String scoreStr = getStringCellValue(hssfRow.getCell(4));
 				Double score = null;
-				if(scoreStr != "")
+				if(!"".equals(scoreStr.trim()) && scoreStr != null)
 					score = Double.parseDouble(scoreStr);
 				
 				stu = new StudentTutorProject();
@@ -315,12 +315,16 @@ public class tutorController implements ConfigDo {
 				else
 					stu.setStudentTotalScore(score.intValue());
 				scoreList.add(stu);
-				System.out.println(stu);
 			}
 		}
 		serviceFit.getTutorService().updateStuProScore(scoreList);
+			
+		
+		
 		return null;
 	}
+	
+	
 
 	// 导出我的学生信息
 	@RequestMapping("download")
@@ -365,6 +369,8 @@ public class tutorController implements ConfigDo {
 			if (bos != null)
 				bos.close();
 		}
+		
+		
 		return null;
 	}
 
