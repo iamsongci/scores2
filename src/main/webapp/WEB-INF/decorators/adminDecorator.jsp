@@ -174,15 +174,15 @@
 					
 					
 					<li id="supTutor"><a href="javascript:void(0)"><i
-							class=" glyphicon glyphicon-import  "></i> <span class="title">信息导入</span><i
+							class=" glyphicon glyphicon-import  "></i> <span class="title">信息管理</span><i
 							class="icon-arrow"></i> <span class="selected"></span> </a>
 						<ul class="sub-menu">
 							<li id="supTutorInfo"><a
-								href="./${sessionScope.pathCode}/empty.do"> <span
+								href="./${sessionScope.pathCode}/student.do"> <span
 									class="title">学生</span>
 							</a></li>
 							<li id="tutor"><a
-								href="./${sessionScope.pathCode}/empty.do"> <span
+								href="./${sessionScope.pathCode}/tutor.do"> <span
 									class="title">导师</span>
 							</a></li>
 						</ul></li>

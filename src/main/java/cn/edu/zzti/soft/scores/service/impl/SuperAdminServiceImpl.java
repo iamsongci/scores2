@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import cn.edu.zzti.soft.scores.entity.Project;
+import cn.edu.zzti.soft.scores.entity.Student;
 import cn.edu.zzti.soft.scores.entity.Tutor;
 import cn.edu.zzti.soft.scores.entity.tools.MachineChoice;
 import cn.edu.zzti.soft.scores.entity.tools.TutorHasPower;
@@ -20,6 +21,7 @@ import cn.edu.zzti.soft.scores.service.MachineRoomAdminService;
 import cn.edu.zzti.soft.scores.service.SuperAdminService;
 import cn.edu.zzti.soft.scores.supervisor.DaoFit;
 import cn.edu.zzti.soft.scores.supervisor.ResultDo;
+import cn.edu.zzti.soft.scores.util.MyString;
 @Service("superAdminServiceImpl")
 public class SuperAdminServiceImpl implements SuperAdminService {
 	ResultDo resultDo;
@@ -315,6 +317,113 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 			resultDo.setResult(tutList);
 			resultDo.setSuccess(true);
 		} 
+		else {
+			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo selectStudent() {
+		resultDo = new ResultDo();
+		List<Student> stuList = daoFit.getSuperAdminDao().selectStudent();
+		List<MyString> strlist = daoFit.getSuperAdminDao().selectStudentHasPro();
+		for (MyString stuID : strlist) {
+			for (Student stu : stuList) {
+				if(stu.getStudentID().equals(stuID.getStr())) {
+					stu.setHasPro(true);
+				}
+			}
+		}
+		
+		if(stuList != null && strlist != null) {
+			resultDo.setResult(stuList);
+			resultDo.setSuccess(true);
+		}
+		else {
+			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo selectTutor() {
+		resultDo = new ResultDo();
+		List<Tutor> stuList = daoFit.getSuperAdminDao().selectTutor();
+		if(stuList != null) {
+			resultDo.setResult(stuList);
+			resultDo.setSuccess(true);
+		}
+		else {
+			resultDo.setMessage("查询失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo insertStudent(List<Student> stuList) {
+		resultDo = new ResultDo();
+		Integer i = null;
+		i = daoFit.getSuperAdminDao().insertStudent(stuList);
+		if(i != null){
+			resultDo.setResult(i);
+			resultDo.setSuccess(true);
+		}else{
+			resultDo.setMessage("插入失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo insertTutor(List<Tutor> tutList) {
+		resultDo = new ResultDo();
+		Integer i = null;
+		i = daoFit.getSuperAdminDao().insertTutor(tutList);
+		if(i != null){
+			resultDo.setResult(i);
+			resultDo.setSuccess(true);
+		}else{
+			resultDo.setMessage("插入失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo deleteStudent(String stuID) {
+		resultDo = new ResultDo();
+		Integer i = null;
+		i = daoFit.getSuperAdminDao().deleteStudent(stuID);
+		if(i != null){
+			resultDo.setResult(i);
+			resultDo.setSuccess(true);
+		}else{
+			resultDo.setMessage("删除失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo deleteTutor(String tutorID) {
+		resultDo = new ResultDo();
+		Integer i = null;
+		i = daoFit.getSuperAdminDao().deleteTutor(tutorID);
+		if(i != null){
+			resultDo.setResult(i);
+			resultDo.setSuccess(true);
+		}else{
+			resultDo.setMessage("删除失败!");
+		}
+		return resultDo;
+	}
+
+	@Override
+	public ResultDo selectStudentHasPro() {
+		resultDo = new ResultDo();
+		List<MyString> strlist = daoFit.getSuperAdminDao().selectStudentHasPro();
+		if(strlist != null) {
+			resultDo.setResult(strlist);
+			resultDo.setSuccess(true);
+		}
 		else {
 			resultDo.setMessage("查询失败!");
 		}

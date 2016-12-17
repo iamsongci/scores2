@@ -61,9 +61,6 @@
 					alert("Connection error!");
 				}
 			});
-/* 			$('#upload').modal('hide');
-			location.reload(); */
-			
 		}
 	}
 </script>

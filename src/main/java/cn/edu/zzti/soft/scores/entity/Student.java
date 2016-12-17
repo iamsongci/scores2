@@ -8,8 +8,14 @@ public class Student {
 	private String studentPhone;
 	private String studentPassword;
 	private String studentClassID;
-	
+	private Boolean hasPro;
 
+	public Boolean getHasPro() {
+		return hasPro;
+	}
+	public void setHasPro(Boolean hasPro) {
+		this.hasPro = hasPro;
+	}
 	public String getStudentID() {
 		return studentID;
 	}
@@ -22,7 +28,7 @@ public class Student {
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
-	public Boolean isStudentSex() {
+	public Boolean getStudentSex() {
 		return studentSex;
 	}
 	public void setStudentSex(Boolean studentSex) {
@@ -48,11 +54,11 @@ public class Student {
 	}
 	@Override
 	public String toString() {
-		return "Student [studentID=" + studentID + ", studentName="
-				+ studentName + ", studentSex=" + studentSex
-				+ ", studentPhone=" + studentPhone + ", studentPassword="
-				+ studentPassword + ", studentClassID=" + studentClassID + "]";
+		return "Student [studentID=" + studentID + ", studentName=" + studentName + ", studentSex=" + studentSex
+				+ ", studentPhone=" + studentPhone + ", studentPassword=" + studentPassword + ", studentClassID="
+				+ studentClassID + ", hasPro=" + hasPro + "]";
 	}
+
 
 	
 }

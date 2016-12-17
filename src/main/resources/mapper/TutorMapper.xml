@@ -53,15 +53,14 @@
 			<result property="className" column="className"/>
 		</resultMap >
 
-
 		<insert id="insertStuTutorPro" parameterType="java.util.List">
 			INSERT studenttutorproject(StudentID, StudentTutorID, StudentProjectID) 
 			VALUES
-				
 			<foreach collection="list" item="item" index="index" separator="," > 
         		(#{item.studentID}, #{item.studentTutorID}, #{item.studentProjectID}) 
     		</foreach> 
 		</insert>
+		
 		<select id="selectStuNotHasThisPro" resultMap="StudentWithClassResult">
 			SELECT student.`StudentID`, student.`StudentName`, classes.`ClassName` FROM student, classes WHERE student.`StudentID` NOT IN (SELECT studenttutorproject.`StudentID` FROM studenttutorproject WHERE studenttutorproject.`StudentProjectID` = #{0})
 			AND student.`StudentClassID` = classes.`ClassID`

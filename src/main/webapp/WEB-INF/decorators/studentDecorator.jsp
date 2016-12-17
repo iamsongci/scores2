@@ -213,7 +213,7 @@
 							<span class="selected"></span>
 					</a></li>
 
-					<li id="stuReport"><a
+					<%-- <li id="stuReport"><a
 						href="./${sessionScope.pathCode}/empty.do"> <i
 							class="clip-stack-empty "></i> <span class="title">日报</span> <span
 							class="selected"></span>
@@ -222,7 +222,7 @@
 						href="./${sessionScope.pathCode}/empty.do"> <i
 							class="clip-download"></i> <span class="title">文件模板</span> <span
 							class="selected"></span>
-					</a></li>
+					</a></li> --%>
 					<li id="stuInfo"><a
 						href="./${sessionScope.pathCode}/studentInfo.do"> <i
 							class=" clip-user-3"></i> <span class="title">个人信息</span> <span

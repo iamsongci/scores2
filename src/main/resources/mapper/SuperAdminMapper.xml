@@ -25,6 +25,65 @@
 			<result property="power2" column="tutorpower2"/>
 		</resultMap>
 		
+		<resultMap type="Student" id="StudentResult">
+			<id property="studentID" column="studentID"/>
+			<result property="studentName" column="studentName"/>
+			<result property="studentSex" column="studentSex"/>
+			<result property="studentClassID" column="studentClassID"/>
+		</resultMap>
+		
+		<resultMap type="Tutor" id="TutorResult">
+			<id property="tutorID" column="tutorID"/>
+			<result property="tutorName" column="tutorName"/>
+			<result property="tutorSex" column="tutorSex"/>
+			<result property="tutorPower1" column="tutorPower1"/>
+			<result property="tutorPower2" column="tutorPower2"/>
+		</resultMap>
+		
+		<resultMap type="cn.edu.zzti.soft.scores.util.MyString" id="MyStringResult">
+			<id property="str" column="str"/>
+		</resultMap>
+		
+		
+		<select id="selectStudentHasPro" resultMap="MyStringResult">
+			SELECT DISTINCT studenttutorproject.`StudentID` AS str FROM studenttutorproject
+		</select>
+		
+		<delete id="deleteTutor">
+			DELETE FROM tutor WHERE tutor.`TutorID` = #{0}
+		</delete>
+		
+		<delete id="deleteStudent">
+			DELETE FROM student WHERE student.`StudentID` = #{0}
+		</delete>
+		
+		<insert id="insertTutor" parameterType="java.util.List" keyProperty="tutorID">
+			INSERT tutor(tutorid, tutorname, tutorsex)
+			VALUES
+			<foreach collection="list" item="item" index="index" separator="," >  
+        		(#{item.tutorID},#{item.tutorName},#{item.tutorSex})  
+   			</foreach> 
+		</insert>
+		
+		<insert id="insertStudent" parameterType="java.util.List" keyProperty="studentID">
+			INSERT student(studentid, studentname, studentsex, studentclassid)
+			VALUES
+			<foreach collection="list" item="item" index="index" separator="," >  
+        		(#{item.studentID},#{item.studentName},#{item.studentSex},#{item.studentClassID})  
+   			</foreach> 
+		</insert>
+		
+		
+		<select id="selectTutor" resultMap="TutorResult">
+			SELECT tutorid, tutorname, tutorsex, tutorpower1, tutorpower2 FROM tutor
+			WHERE tutor.tutorname != '机房'
+		</select>
+		
+		
+		<select id="selectStudent" resultMap="StudentResult">
+			SELECT student.`StudentID`, student.`StudentName`, student.`StudentSex`,student.`StudentClassID` FROM student
+		</select>
+		
 		<select id="selectTutorIDWithPower" resultType="TutorIDWithPower">
 			SELECT tutor.`TutorID`, tutor.`TutorPower1`, tutor.`TutorPower2` FROM tutor WHERE tutor.`TutorID` = #{0}
 		</select>
@@ -45,7 +104,7 @@
 		
 		<select id="selectTutorInfo" resultMap="TutorInfoResult">
 			SELECT tutor.`TutorID`, tutor.`TutorName`, tutor.`TutorSex`, tutor.`TutorEmail`, tutor.`TutorPhone`, tutor.`TutorPower1`, tutor.`TutorPower2`
-			FROM tutor
+			FROM tutor where tutor.tutorname != '机房'
 		</select>
 		
 		<update id="updateTutorPwd">

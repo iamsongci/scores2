@@ -3,6 +3,7 @@ package cn.edu.zzti.soft.scores.service;
 import java.util.List;
 
 import cn.edu.zzti.soft.scores.entity.Project;
+import cn.edu.zzti.soft.scores.entity.Student;
 import cn.edu.zzti.soft.scores.entity.Tutor;
 import cn.edu.zzti.soft.scores.entity.tools.TutorInfo;
 import cn.edu.zzti.soft.scores.entity.tools.TutorPower;
@@ -86,4 +87,36 @@ public interface SuperAdminService {
 	 * @return
 	 */
 	ResultDo updateTutorPro(String tutorID, String power1, String pwoer2);
+
+	/**
+	 * 
+	 * @return
+	 */
+	ResultDo selectStudent();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	ResultDo selectTutor();
+
+	/**
+	 * 
+	 * @param stuList
+	 * @return
+	 */
+	ResultDo insertStudent(List<Student> stuList);
+	
+	/**
+	 * 
+	 * @param tutList
+	 * @return
+	 */
+	ResultDo insertTutor(List<Tutor> tutList);
+
+	ResultDo deleteStudent(String stuID);
+	
+	ResultDo deleteTutor(String tutorID);
+	
+	ResultDo selectStudentHasPro();
 }
