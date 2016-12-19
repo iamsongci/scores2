@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectNotify" resultMap="NotifyResult">
 		SELECT notify.* FROM notify WHERE notify.`ToStudent` = '1' AND ((notify.`Owner` IN 
 		(SELECT tutor.`TutorName` FROM tutor WHERE tutor.`TutorID` IN (SELECT DISTINCT studenttutorproject.`StudentTutorID` 
-		FROM studenttutorproject WHERE studenttutorproject.`StudentID` = '201560140401'))) OR notify.`Owner` = 'zzti' OR notify.`Owner` = '机房')
+		FROM studenttutorproject WHERE studenttutorproject.`StudentID` = #{0}))) OR notify.`Owner` = 'zzti' OR notify.`Owner` = '机房')
 		ORDER BY notify.`NotifyID` DESC
 	</select>
 	
