@@ -5,7 +5,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>软件学院毕业设计管理平台</title>
+<title>软件学院实践课题管理系统</title>
 
 <script type="text/javascript">
 	function init(title, content) {
@@ -127,7 +127,7 @@
 									</c:if> <c:if test="${notify.owner == '机房'}">
 										<small><button type="button" class="btn btn-success">${notify.owner}</button></small>
 									</c:if> <c:if
-										test="${notify.owner != '机房' and notify.owner != 'zzti'}">
+										test="${notify.owner != '机房' and notify.owner != '系统'}">
 										<small><button type="button" class="btn btn-info">${notify.owner}</button></small>
 									</c:if>
 								</td>

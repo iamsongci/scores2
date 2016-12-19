@@ -5,7 +5,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>实践课题管理系统</title>
+<title>软件学院实践课题管理系统</title>
 
 <script type="text/javascript">
 	function look(proID, proName) {

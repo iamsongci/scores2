@@ -5,7 +5,7 @@
 
 <html>
 <head>
-<title>学生基本信息</title>
+<title>软件学院实践课题管理系统</title>
 
 <script src="assets/js/ajaxfileupload.js" type="text/javascript"></script>
 

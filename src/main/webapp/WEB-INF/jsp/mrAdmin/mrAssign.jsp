@@ -5,7 +5,7 @@
 <html>
 <head>
 
-<title>个人信息</title>
+<title>软件学院实践课题管理系统</title>
 <link rel="stylesheet" href="assets/plugins/select2/select2.css">
 <script type="text/javascript">
      function requestUrl(name,id,pathCode) {

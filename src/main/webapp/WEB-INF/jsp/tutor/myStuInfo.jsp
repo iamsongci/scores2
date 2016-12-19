@@ -1,15 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%--
-  Created by IntelliJ IDEA.
-  User: cc
-  Date: 15/12/10
-  Time: 16:27
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
-<title>实践课题管理系统</title>
+<title>软件学院实践课题管理系统</title>
 </head>
 <body>
 	<!-- start: PAGE HEADER -->

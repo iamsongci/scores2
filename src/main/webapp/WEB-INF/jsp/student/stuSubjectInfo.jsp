@@ -5,7 +5,7 @@
 <html>
 <head>
 
-<title>课题信息</title>
+<title>软件学院实践课题管理系统</title>
 <link rel="stylesheet" href="assets/plugins/select2/select2.css">
 
 <script type="text/javascript">
