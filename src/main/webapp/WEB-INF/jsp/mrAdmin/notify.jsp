@@ -124,10 +124,11 @@
 								<td>
 									<c:if test="${notify.owner == 'zzti'}">
 										<small><button type="button" class="btn btn-primary">系统</button></small>
-									</c:if> <c:if test="${notify.owner == '机房'}">
+									</c:if> 
+									<c:if test="${notify.owner == '机房'}">
 										<small><button type="button" class="btn btn-success">${notify.owner}</button></small>
 									</c:if> <c:if
-										test="${notify.owner != '机房' and notify.owner != '系统'}">
+										test="${notify.owner != '机房' and notify.owner != 'zzti'}">
 										<small><button type="button" class="btn btn-info">${notify.owner}</button></small>
 									</c:if>
 								</td>

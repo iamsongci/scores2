@@ -62,9 +62,10 @@
     		</foreach> 
 		</insert>
 		
+		<!--  -->
 		<select id="selectStuNotHasThisPro" resultMap="StudentWithClassResult">
-			SELECT student.`StudentID`, student.`StudentName`, classes.`ClassName` FROM student, classes WHERE student.`StudentID` NOT IN (SELECT studenttutorproject.`StudentID` FROM studenttutorproject WHERE studenttutorproject.`StudentProjectID` = #{0})
-			AND student.`StudentClassID` = classes.`ClassID`
+			SELECT student.`StudentID`, student.`StudentName`, classes.`ClassName` FROM student LEFT JOIN classes ON student.`StudentClassID` = classes.`ClassID` WHERE student.`StudentID` NOT IN (SELECT studenttutorproject.`StudentID` 
+			FROM studenttutorproject WHERE studenttutorproject.`StudentProjectID` = 'RB7001039')
 		</select>
 		
 		<delete id="deleteByIndex">

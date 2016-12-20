@@ -376,6 +376,9 @@ public class SuperAdminController implements ConfigDo {
 							if(!className.contains("卓越")) {
 								className = ID.substring(0, 10);
 							}
+							else {
+								className = ID.substring(0, 4);
+							}
 							
 							stu = new Student();
 							stu.setStudentID(ID);
