@@ -195,6 +195,7 @@
 							<th><small>学号</small></th>
 							<th><small>姓名</small></th>
 							<th><small>课题名称</small></th>
+							<th><small>导师</small></th>
 							<th><small>分数</small></th>
 							<th><small>操作</small></th>
 						</tr>
@@ -205,6 +206,8 @@
 								<td><small>${stu.studentID}</small></td>
 								<td><small>${stu.studentName}</small></td>
 								<td><small>${stu.trueName}</small></td>
+								<td><small>${stu.tutorName}</small></td>
+								
 								<td><small>${stu.totalScore}</small></td>
 								<td>
 									<div class="visible-md visible-lg hidden-sm hidden-xs"

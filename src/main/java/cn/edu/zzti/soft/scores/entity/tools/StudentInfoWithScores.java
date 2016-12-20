@@ -11,6 +11,14 @@ public class StudentInfoWithScores {
 	private Integer	reportScore;
 	private Integer	totalScore;
 	private String 	reportAddress;
+	private String 	tutorName;
+	
+	public String getTutorName() {
+		return tutorName;
+	}
+	public void setTutorName(String tutorName) {
+		this.tutorName = tutorName;
+	}
 	public Integer getIndex() {
 		return index;
 	}

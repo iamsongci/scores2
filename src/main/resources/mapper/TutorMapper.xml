@@ -45,6 +45,7 @@
 			<result property="reportScore" column="reportScore"/> 
 			<result property="totalScore" column="totalScore"/> 
 			<result property="reportAddress" column="reportAddress"/> 
+			<result property="tutorName" column="tutorName"/>
 		</resultMap >
 		
 		<resultMap type="StudentWithClass" id="StudentWithClassResult">
@@ -71,8 +72,8 @@
 		</delete>
 		
 		<select id="selectStudentByProjectID" resultMap="StudentInfoWithScoresResult">
-			SELECT studenttutorproject.`index`, studenttutorproject.`StudentID` AS studentID, student.`StudentName` AS studentName, project.`ProjectName` AS projectName, studenttutorproject.`TrueName` AS trueName, studenttutorproject.`StudentUsualScore` AS usualScore, studenttutorproject.`StudentProjectScore` AS projectScore, studenttutorproject.`StudentReportScore` AS reportScore, studenttutorproject.`StudentTotalScore` AS totalScore, studenttutorproject.`ReportAddress`  AS reportAddress
-			FROM studenttutorproject LEFT JOIN student ON student.`StudentID` = studenttutorproject.`StudentID` LEFT JOIN project ON project.`ProjectID` = studenttutorproject.`StudentProjectID`WHERE studenttutorproject.`StudentProjectID` = #{0}
+			SELECT studenttutorproject.`index`, studenttutorproject.`StudentID` AS studentID, student.`StudentName` AS studentName, project.`ProjectName` AS projectName, studenttutorproject.`TrueName` AS trueName, studenttutorproject.`StudentUsualScore` AS usualScore, studenttutorproject.`StudentProjectScore` AS projectScore, studenttutorproject.`StudentReportScore` AS reportScore, studenttutorproject.`StudentTotalScore` AS totalScore, studenttutorproject.`ReportAddress`  AS reportAddress, tutor.`TutorName` AS tutorName 
+			FROM studenttutorproject LEFT JOIN student ON student.`StudentID` = studenttutorproject.`StudentID` LEFT JOIN project ON project.`ProjectID` = studenttutorproject.`StudentProjectID` LEFT JOIN tutor ON tutor.`TutorID` = studenttutorproject.`StudentTutorID` WHERE studenttutorproject.`StudentProjectID` = #{0}
 		</select>
 		
 		<select id="selectProject" resultType="Project">
