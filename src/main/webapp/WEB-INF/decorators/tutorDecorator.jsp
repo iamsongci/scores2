@@ -127,7 +127,7 @@
 				<!-- start: TOP NAVIGATION MENU -->
 				<ul class="nav navbar-right">
 					<li class="dropdown current-user"><a class="dropdown-toggle"
-						href="./${sessionScope.pathCode}/Description.do"> <i
+						href="./${sessionScope.pathCode}/home.do"> <i
 							class="clip-youtube "></i> <span class="username">系统使用说明</span>
 					</a></li>
 					<!-- start: USER DROPDOWN -->
@@ -169,23 +169,23 @@
 						href="./${sessionScope.pathCode}/home.do"><i
 							class="clip-home-3"></i> <span class="title">首页</span><span
 							class="selected"></span> </a></li>
-					<li><a href="./${sessionScope.pathCode}/notify.do"><i
-							class=" glyphicon glyphicon-bullhorn  "></i> <span class="title">通知管理</span></a>
+					<li id="tutNotify"><a href="./${sessionScope.pathCode}/notify.do"><i
+							class=" glyphicon glyphicon-bullhorn  "></i> <span class="selected">通知管理</span></a>
 					</li>
 
-					<li id="teaNewTopic"><a
-						href="./${sessionScope.pathCode}/myMrInfo.do"><i
-							class="clip-pencil"></i> <span class="title">机房信息</span><span
-							class="selected"></span> </a></li>
-					<li id="teaTopicList"><a href="javascript:void(0)"><i
+							<li id="myMrInfo"><a href="./${sessionScope.pathCode}/myMrInfo.do"><i
+							class=" clip-pencil"></i> <span class="selected">机房信息</span></a>
+					</li>
+							
+					<li id="myStudent"><a href="javascript:void(0)"><i
 							class="clip-picassa 	 "></i> <span class="title">我的学生</span><i
 							class="icon-arrow"></i> <span class="selected"></span> </a>
 						<ul class="sub-menu">
-							<li id="adminTeacherInfo"><a
+							<li id="myStudentInfo"><a
 								href="./${sessionScope.pathCode}/myStuInfo.do"> <span
 									class="title"> 学生信息 </span>
 							</a></li>
-							<li id="lookTeaStudent"><a
+							<li id="myStudentScore"><a
 								href="./${sessionScope.pathCode}/myStuInfoWithScores.do"> <span
 									class="title">学生成绩</span>
 							</a></li>
@@ -194,7 +194,7 @@
 
 					<c:if
 						test="${not empty tutor.tutorPower1}">
-						<li id="teacher_file"><a
+						<li id="tutorAssign"><a
 							href="./${sessionScope.pathCode}/tutorAssign.do">
 							<i class=" clip-leaf"></i>  
 							<span class="title">管理员-导师学生分配</span>
@@ -203,7 +203,7 @@
 					
 					<c:if
 						test="${not empty tutor.tutorPower2}">
-						<li id="teacher_file"><a
+						<li id="collectScores"><a
 							href="./${sessionScope.pathCode}/collectScores.do">
 							<i class=" clip-leaf"></i>  
 							<span class="title">管理员-学生成绩汇总</span>

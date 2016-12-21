@@ -299,6 +299,8 @@ public class SuperAdminController implements ConfigDo {
 		else {
 			model.addAttribute("message", "0");
 		}
+		model.addAttribute("menuSelected1", ConfigDo.INFO);
+		model.addAttribute("menuSelected2", ConfigDo.SUPTUTORSINFO);
 		return "./superAdmin/tutor";
 	}
 	
@@ -315,6 +317,8 @@ public class SuperAdminController implements ConfigDo {
 		else {
 			model.addAttribute("message", "0");
 		}
+		model.addAttribute("menuSelected1", ConfigDo.INFO);
+		model.addAttribute("menuSelected2", ConfigDo.SUPSTUDENTSINFO);
 		return "./superAdmin/student";
 	}
 	

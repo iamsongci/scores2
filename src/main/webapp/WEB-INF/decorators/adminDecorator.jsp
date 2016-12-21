@@ -155,7 +155,7 @@
 
 					<li id="supNotify"><a
 						href="./${sessionScope.pathCode}/notify.do"><i
-							class=" glyphicon glyphicon-bullhorn  "></i> <span class="title">通知管理</span></a>
+							class=" glyphicon glyphicon-bullhorn  "></i> <span class="selected">通知管理</span></a>
 					</li>
 
 					<li id="supTutor"><a href="javascript:void(0)"><i
@@ -173,15 +173,15 @@
 						</ul></li>
 					
 					
-					<li id="supTutor"><a href="javascript:void(0)"><i
+					<li id="info"><a href="javascript:void(0)"><i
 							class=" glyphicon glyphicon-import  "></i> <span class="title">信息管理</span><i
 							class="icon-arrow"></i> <span class="selected"></span> </a>
 						<ul class="sub-menu">
-							<li id="supTutorInfo"><a
+							<li id="supStudentsInfo"><a
 								href="./${sessionScope.pathCode}/student.do"> <span
 									class="title">学生</span>
 							</a></li>
-							<li id="tutor"><a
+							<li id="supTutorsInfo"><a
 								href="./${sessionScope.pathCode}/tutor.do"> <span
 									class="title">导师</span>
 							</a></li>

@@ -154,7 +154,7 @@
 				<!-- start: TOP NAVIGATION MENU -->
 				<ul class="nav navbar-right">
 					<li class="dropdown current-user"><a class="dropdown-toggle"
-						href="./${sessionScope.pathCode}/Description.do"> <i
+						href="./${sessionScope.pathCode}/home.do"> <i
 							class="clip-youtube "></i> <span class="username">系统使用说明</span>
 					</a></li>
 					<!-- start: USER DROPDOWN -->
@@ -201,12 +201,12 @@
 							class="clip-home-3"></i> <span class="title">首页</span><span
 							class="selected"></span> </a></li>
 
-					<li><a
+					<li id="mrnotify"><a
 						href="./${sessionScope.pathCode}/notify.do"><i
-							class=" glyphicon glyphicon-bullhorn  "></i> <span class="title">通知管理</span></a>
+							class=" glyphicon glyphicon-bullhorn  "></i> <span class="selected">通知管理</span></a>
 					</li>
 
-					<li id="stuInfo"><a
+					<li id="mrinfo"><a
 						href="./${sessionScope.pathCode}/mrInfo.do"> <i
 							class=" clip-stack-2"></i> <span class="title">机房信息维护</span> <span
 							class="selected"></span>
@@ -216,7 +216,7 @@
 							class=" clip-users-2"></i> <span class="title">导师机房分配</span> <span
 							class="selected"></span>
 					</a></li>
-					<li id="teaInfo"><a
+					<li id="mrteainfo"><a
 						href="./${sessionScope.pathCode}/mrTeaInfo.do"> <i
 							class=" clip-user-3"></i> <span class="title">个人信息</span> <span
 							class="selected"></span>

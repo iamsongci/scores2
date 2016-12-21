@@ -43,6 +43,10 @@ public interface ConfigDo {
      */
 	public static final String SUPTUTOR="supTutor";
 	 /**
+     * 超级管理员端------信息管理
+     */
+	public static final String INFO="info";
+	 /**
      * 超级管理员端------系统权限分配
      */
 	public static final String SUPPOWER="supPower";
@@ -66,6 +70,33 @@ public interface ConfigDo {
 	 */
 	public static final String MRASSIGN="mrAssign";
 	
+	/**
+	 * 教师端-------通知管理
+	 */
+	public static final String TUTNOTIFY="tutNotify";
+	
+	/**
+	 * 教师端-------机房信息
+	 */
+	public static final String MYMRINFO="myMrInfo";
+	
+	/**
+	 * 教师端-------我的学生
+	 */
+	public static final String MYSTUDENT="myStudent";
+	
+	/**
+	 * 教师端课题组长-------课题分配
+	 */
+	public static final String TUTORASSIGN="tutorAssign";
+	/**
+	 * 教师端课题组长-------课题成绩汇总
+	 */
+	public static final String COLLECTSCORES="collectScores";
+	/**
+	 * 机房-------通知
+	 */
+	public static final String MRNOTIFY="mrnotify";
 	
 	/*
      * 二级导航栏
@@ -79,6 +110,15 @@ public interface ConfigDo {
      * 超级管理员端------通知历史
      */
 	public static final String SUPNOTIFYHISTORY="supNotifyHistory";
+	
+	/**
+     * 超级管理员端------信息管理-学生
+     */
+	public static final String SUPSTUDENTSINFO="supStudentsInfo";
+	/**
+     * 超级管理员端------信息管理-导师
+     */
+	public static final String SUPTUTORSINFO="supTutorsInfo";
 	/**
      * 超级管理员端------导师信息查看
      */
@@ -88,6 +128,14 @@ public interface ConfigDo {
      */
 	public static final String SUPTUTORPOWER="supTutorPower";
 	
+	/**
+	 * 教师端-------我的学生信息
+	 */
+	public static final String MYSTUDENTINFO="myStudentInfo";
+	/**
+	 * 教师端-------我的学生成绩
+	 */
+	public static final String MYSTUDENTSCORE="myStudentScore";
 	
 	
 	

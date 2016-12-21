@@ -28,11 +28,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object arg2) throws Exception {
 		 String str = (String) request.getSession().getAttribute("isLogin");  
-	        if(str!=null){  
-	            return true;  
-	        }  
-	       // response.sendRedirect("scores/index.jsp");如何解决让页面跳转到登录页面
-	        return false;  
+	        if(str==null){  
+	        	response.sendRedirect("../");//如何解决让页面跳转到登录页面
+	            return false;  
+	        }  else{
+	        	return true; 
+	        }
+	        
+	         
 	}
 
 }

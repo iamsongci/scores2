@@ -57,6 +57,7 @@ public class mrAdminController implements ConfigDo {
 
 		serviceFit.getNotifyService().insertNotify(new Notify(null, title, content, tutor.getTutorName(),
 				new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), toStudent));
+		model.addAttribute("menuSelected1", ConfigDo.MRNOTIFY);
 		return "./mrAdmin/notify";
 	}
 
@@ -72,6 +73,7 @@ public class mrAdminController implements ConfigDo {
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}
+		model.addAttribute("menuSelected1", ConfigDo.MRNOTIFY);
 		return "./mrAdmin/notify";
 	}
 
@@ -124,7 +126,7 @@ public class mrAdminController implements ConfigDo {
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}
-		model.addAttribute("menuSelected1", ConfigDo.MRTEAINFO);
+		
 		return "./mrAdmin/mrAssign";
 	}
 
@@ -183,7 +185,6 @@ public class mrAdminController implements ConfigDo {
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}
-		model.addAttribute("menuSelected1", ConfigDo.MRINFO);
 		return "./mrAdmin/assign";
 	}
 

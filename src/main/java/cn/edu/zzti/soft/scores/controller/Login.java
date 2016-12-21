@@ -30,7 +30,7 @@ public class Login {
 		ModelAndView mv = new ModelAndView();
 		session.setAttribute("isLogin", null);
 		int n = u.length();
-		if (n == 2 || n == 3) {// 判断导师姓名进行登录
+		if (n == 2 || n == 3|| n == 4) {// 判断导师姓名进行登录
 			ResultDo resultDo = serviceFit.getTutorService().TutLogin(u);
 			Tutor tut = (Tutor) resultDo.getResult();
 			if (resultDo.isSuccess()) {
@@ -68,7 +68,7 @@ public class Login {
 			} else {
 				model.put("message", resultDo.getMessage());
 			}
-		} else if (u.equals("zzti") && p.equals("zzti00")) {// 跳转超级管理员界面
+		} else if (u.equals("zzti00") && p.equals("zzti00")) {// 跳转超级管理员界面
 			session.setAttribute("isLogin", "true");
 			session.setAttribute("pathCode", "superAdmin");
 			role = "redirect:./superAdmin/home.do";

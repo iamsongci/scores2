@@ -191,6 +191,7 @@ public class tutorController implements ConfigDo {
 			proList.add(pro);
 		}
 		model.addAttribute("proList", (List<Project>) proList);
+		model.addAttribute("menuSelected1", ConfigDo.TUTORASSIGN);
 		return "./tutor/tutorAssign";
 	}
 	// 导出我的学生信息
@@ -265,6 +266,7 @@ public class tutorController implements ConfigDo {
 			proList.add(pro);
 		}
 		model.addAttribute("proList", (List<Project>) proList);
+		model.addAttribute("menuSelected1", ConfigDo.COLLECTSCORES);
 		return "./tutor/collectScores";
 	}
 
@@ -283,6 +285,7 @@ public class tutorController implements ConfigDo {
 		} else {
 			model.addAttribute("message", "0");
 		}
+		
 		return "redirect:./myStuInfoWithScores.do";
 	}
 
@@ -386,6 +389,8 @@ public class tutorController implements ConfigDo {
 		} else {
 			model.addAttribute("message", "0");
 		}
+		model.addAttribute("menuSelected1", ConfigDo.MYSTUDENT);
+		model.addAttribute("menuSelected2", ConfigDo.MYSTUDENTSCORE);
 		return "./tutor/myStuInfoWithScores";
 	}
 
@@ -401,6 +406,8 @@ public class tutorController implements ConfigDo {
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}
+		model.addAttribute("menuSelected1", ConfigDo.MYSTUDENT);
+		model.addAttribute("menuSelected2", ConfigDo.MYSTUDENTINFO);
 		return "./tutor/myStuInfo";
 	}
 
@@ -416,7 +423,7 @@ public class tutorController implements ConfigDo {
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}
-
+		model.addAttribute("menuSelected1", ConfigDo.MYMRINFO);
 		return "./tutor/myMrInfo";
 	}
 
@@ -447,6 +454,7 @@ public class tutorController implements ConfigDo {
 		if (result.isSuccess()) {
 			model.addAttribute("notifyList", (List<Notify>) result.getResult());
 			model.addAttribute("user", tutor);
+			model.addAttribute("menuSelected1", ConfigDo.TUTNOTIFY);
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}
