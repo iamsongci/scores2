@@ -30,7 +30,7 @@ public class Login {
 		ModelAndView mv = new ModelAndView();
 		session.setAttribute("isLogin", null);
 		int n = u.length();
-		if (n == 2 || n == 3|| n == 4) {// 判断导师姓名进行登录
+		if (n == 2 || n == 3 || n == 4) {// 判断导师姓名进行登录
 			ResultDo resultDo = serviceFit.getTutorService().TutLogin(u);
 			Tutor tut = (Tutor) resultDo.getResult();
 			if (resultDo.isSuccess()) {

@@ -229,7 +229,6 @@
 							formId="condition" />
 					</div>
 				</div>
-
 			</div>
 		</div>
 		<!-- end: GENERAL PANEL -->

@@ -11,14 +11,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -51,6 +54,7 @@ import cn.edu.zzti.soft.scores.supervisor.ResultDo;
 import cn.edu.zzti.soft.scores.supervisor.ServiceFit;
 import cn.edu.zzti.soft.scores.util.ExcelUtil;
 import cn.edu.zzti.soft.scores.util.MyString;
+import cn.edu.zzti.soft.scores.util.StringUtil;
 
 @Controller
 @RequestMapping("/tutor/")
@@ -73,19 +77,27 @@ public class tutorController implements ConfigDo {
 	
 	
 	@RequestMapping("assignStudent")
-	public String assignStudent(Model model, HttpSession session, @RequestParam("studentID") String studentID, @RequestParam("tutorID") String tutorID, @RequestParam("proID") String proID, @RequestParam("tutorName") String tutorName) {
+	public String assignStudent(Model model, HttpSession session, @RequestParam("studentID") String studentID, @RequestParam("tutorID") String tutorID, @RequestParam("proID") String proID, @RequestParam("tutorName") String tutorName, @RequestParam("className") String className) {
 		try {
 			tutorName = URLDecoder.decode(tutorName, "utf8");
+			className = URLDecoder.decode(className, "utf8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		
+		String[] stuIDList = studentID.split(",");
+		System.out.println(Arrays.toString(stuIDList));
 		List<StudentTutorProject> stuList = new ArrayList<StudentTutorProject>();
-		stuList.add(new StudentTutorProject(studentID, tutorID, proID, null, null, null, null));
+		for (String stuID : stuIDList) {
+			stuList.add(new StudentTutorProject(stuID, tutorID, proID, null, null, null, null));
+		}
 		ResultDo resultDo = serviceFit.getTutorService().insertStuTutorPro(stuList);
 		if (resultDo.isSuccess()) {
 			model.addAttribute("tutorID", tutorID);
 			model.addAttribute("proID", proID);
 			model.addAttribute("tutorName", tutorName);
+			model.addAttribute("className", className);
+			
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}
@@ -94,20 +106,49 @@ public class tutorController implements ConfigDo {
 	
 	
 	@RequestMapping("assign")
-	public String assign(Model model, HttpSession session, @RequestParam("proID") String proID, @RequestParam("tutorID") String tutorID, @RequestParam("tutorName") String tutorName) {
+	public String assign(Model model, HttpSession session, @RequestParam("proID") String proID, @RequestParam("tutorID") String tutorID, @RequestParam("tutorName") String tutorName, @RequestParam("className") String className) {
 		try {
 			tutorName = URLDecoder.decode(tutorName, "utf8");
+			className = URLDecoder.decode(className, "utf8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		
 		ResultDo resultDo = serviceFit.getTutorService().selectStuNotHasThisPro(proID);
 		List<StudentWithClass> stuList = (List<StudentWithClass>)resultDo.getResult();
+		
+		List<StudentWithClass> thisStuList = new ArrayList<StudentWithClass>();
+		
+		System.out.println(className);
+		
+		if(!StringUtil.isNotEmpty(className)) {
+			thisStuList = stuList;
+		}
+		else {
+			for (StudentWithClass stu : stuList) {
+				System.out.println(stu.getClassName());
+				System.out.println(className);
+				if(stu.getClassName().equals(className)) {
+					thisStuList.add(stu);
+				}
+			}
+			
+		}
+		
+		Set<String> classSet = new HashSet<String>();
+		for (StudentWithClass stu : stuList) {
+			classSet.add(stu.getClassName());
+		}
+		List<MyString> classList = new ArrayList<MyString>();
+		for (String name : classSet) {
+			classList.add(new MyString(name));
+		}
 		if (resultDo.isSuccess()) {
-			model.addAttribute("stuList", stuList);
+			model.addAttribute("stuList", thisStuList);
 			model.addAttribute("tutorID", tutorID);
 			model.addAttribute("proID", proID);
 			model.addAttribute("tutorName", tutorName);
+			model.addAttribute("nameList", classList);
 		} else {
 			model.addAttribute("message", "0");// 未在前台添加事件
 		}

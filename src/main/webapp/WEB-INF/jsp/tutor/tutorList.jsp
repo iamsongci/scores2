@@ -18,7 +18,7 @@
 	}
 
 	function AssignStu(tutorID, proID, tutorName) {
-		var url = "./${sessionScope.pathCode}/assign.do?proID=" + proID + "&tutorID=" + tutorID + "&tutorName=" + tutorName;
+		var url = "./${sessionScope.pathCode}/assign.do?proID=" + proID + "&tutorID=" + tutorID + "&tutorName=" + tutorName + "&className=";
 		url = encodeURI(url);
 		url = encodeURI(url);
 		window.location.href = url;
